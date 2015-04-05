@@ -1,0 +1,7 @@
+/.project
+/.idea/*.*
+/.idea/**/*.*
+/spec/coverage/*.*
+/spec/coverage/**/*.*
+/spec/results/*.*
+/spec/results/**/*.*
