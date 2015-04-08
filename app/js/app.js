@@ -2,7 +2,7 @@ define([
   'backbone',
   'router'
 ], function (Backbone, Router) {
-  return function() {
+  return function () {
     this.initialize = function () {
       Router.initialize();
       Backbone.history.start();

@@ -4,28 +4,27 @@ define([
   'text!templates/new_todo_view.ejs',
   'model/todo',
   'collection/todos'
-], function ($, Backbone, indexTemplate, ToDo, ToDos) {
+], function ($, Backbone, newToDoTemplate, ToDo, ToDos) {
   return Backbone.View.extend({
-    el: $('#todo-app-view'),
-
     events: {
       'click #newToDo': 'onNewTodoClicked'
     },
 
     initialize: function () {
       this.todos = new ToDos();
-      this.$input = this.$('input[type="text"]');
     },
 
     render: function () {
-      var compiledTemplate = ejs.render(indexTemplate, {view: this, model: this.model}, {});
-      this.$el.empty();
-      this.$el.append(compiledTemplate);
+      var compiledTemplate = ejs.render(newToDoTemplate, {view: this, model: this.model}, {});
+      this.$el.html(compiledTemplate);
       return this
     },
 
-    onNewTodoClicked: function () {
-      this.todos.add(new ToDo({title: this.$input.val()}));
+    onNewTodoClicked: function (e) {
+      e && e.preventDefault();
+      var title = this.$('input[type="text"]').val();
+      this.todos.add(new ToDo({title: title}));
+      this.$('input[type="text"]').val('');
     }
   });
 });

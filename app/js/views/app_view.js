@@ -1,21 +1,19 @@
 define([
   'jquery',
   'backbone',
-  'views/new_todo_view'
-
-], function ($, Backbone, ToDoView) {
+  'views/new_todo_view',
+  'text!templates/app_view.ejs'
+], function ($, Backbone, ToDoView, appViewTemplate) {
   return Backbone.View.extend({
-    el: $('#todo-app'),
-    events: {
-      'click #newToDo': 'onNewTodoClicked'
-    },
-
     initialize: function () {
       this.todoView = new ToDoView();
     },
 
     render: function () {
-      this.$el.append(this.todoView.render().$el);
+      var compiledTemplate = ejs.render(appViewTemplate, {view: this, model: this.model}, {});
+      this.$el.empty();
+      this.$el.append(compiledTemplate);
+      this.$('#todo-app-view').html(this.todoView.render().$el);
       return this
     }
   });

@@ -1,14 +1,29 @@
 define([
   'views/new_todo_view',
+  'collection/todos',
   'ejs'
-], function (ToDoView) {
+
+], function (ToDoView, ToDos) {
   var instance, subject;
 
   beforeEach(function () {
-    instance = new ToDoView({el: $('body')});
+    instance = new ToDoView();
     subject = function () {
       return instance;
     }
+  });
+
+  describe('initialize ', function () {
+    beforeEach(function () {
+      subject = function () {
+        instance.initialize();
+      }
+    });
+
+    it('will initialize a todo collection', function () {
+      subject();
+      expect(instance.todos instanceof ToDos).toBe(true);
+    });
   });
 
   describe('render', function () {
@@ -53,6 +68,11 @@ define([
         it('sets title on the added todo', function () {
           subject();
           expect(instance.todos.first().get("title")).toEqual('nu');
+        });
+
+        it('clears the input after adding', function () {
+          subject();
+          expect(instance.$('input[type="text"]').val()).toEqual('');
         });
       });
     });
