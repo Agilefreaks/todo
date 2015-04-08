@@ -10,6 +10,7 @@ define([
       index: function () {
         var appView = new AppView();
         appView.render();
+
       }
     },
     {
