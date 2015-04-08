@@ -1,13 +1,20 @@
 define([
   'jquery',
   'backbone',
-  'text!templates/app_view.ejs'
-], function ($, Backbone, indexTemplate) {
+  'text!templates/app_view.ejs',
+  'model/todo',
+  'collection/todos'
+], function ($, Backbone, indexTemplate, ToDo, ToDos) {
   return Backbone.View.extend({
     el: $('#todo-app'),
 
-    currentDate: function () {
-      return new Date();
+    events: {
+      'click #newToDo': 'onNewTodoClicked'
+    },
+
+    initialize: function () {
+      this.todos = new ToDos();
+      this.$input = this.$('input[type="text"]');
     },
 
     render: function () {
@@ -15,6 +22,10 @@ define([
       this.$el.empty();
       this.$el.append(compiledTemplate);
       return this
+    },
+
+    onNewTodoClicked: function () {
+      this.todos.add(new ToDo({title: this.$input.val()}));
     }
   });
 });
