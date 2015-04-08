@@ -3,3 +3,4 @@
 /node_modules/**
 /spec/coverage/**
 /spec/results/**
+/results

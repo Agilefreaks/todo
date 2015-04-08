@@ -19,6 +19,6 @@ requirejs.config({
 requirejs([
   'app',
   'ejs'
-], function(App) {
+], function (App) {
   new App().initialize();
 });
