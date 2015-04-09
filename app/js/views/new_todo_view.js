@@ -15,15 +15,19 @@ define([
     },
 
     render: function () {
-      var compiledTemplate = ejs.render(newToDoTemplate, {view: this, model: this.model}, {});
+      var compiledTemplate = ejs.render(newToDoTemplate, {}, {});
       this.$el.html(compiledTemplate);
       return this
     },
 
     onNewTodoClicked: function (e) {
       e && e.preventDefault();
-      var title = this.$('input[type="text"]').val();
-      this.todos.add(new ToDo({title: title}));
+      var value = this.$('input[type="text"]').val();
+      if (value == '') {
+        return;
+      }
+
+      this.todos.add(new ToDo({title: value}));
       this.$('input[type="text"]').val('');
     }
   });

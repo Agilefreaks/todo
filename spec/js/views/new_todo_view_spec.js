@@ -32,6 +32,7 @@ define([
         instance.render();
       }
     });
+
     it('will render a text input', function () {
       subject();
       expect(instance.$('input[type="text"]').length).toEqual(1);
@@ -75,6 +76,17 @@ define([
           expect(instance.$('input[type="text"]').val()).toEqual('');
         });
       });
+
+      describe('when input has no value', function () {
+        beforeEach(function () {
+          instance.$('input[type="text"]').val('');
+        });
+
+        it('does not add item to collection', function () {
+          subject();
+          expect(instance.todos.length).toEqual(0);
+        })
+      })
     });
   });
 });

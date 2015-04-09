@@ -32,12 +32,6 @@ define([
       }
     });
 
-    it('will render the new todo_view', function () {
-      var renderSpy = spyOn(instance.todoView, 'render').and.callThrough();
-      subject();
-      expect(renderSpy).toHaveBeenCalled();
-    });
-
     it('displays todoView in appView', function () {
       subject();
       expect($.contains(instance.el, instance.todoView.el)).toBe(true);
