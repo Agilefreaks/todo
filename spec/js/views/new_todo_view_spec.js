@@ -7,23 +7,10 @@ define([
   var instance, subject;
 
   beforeEach(function () {
-    instance = new ToDoView();
+    instance = new ToDoView({model: new ToDos()});
     subject = function () {
       return instance;
     }
-  });
-
-  describe('initialize ', function () {
-    beforeEach(function () {
-      subject = function () {
-        instance.initialize();
-      }
-    });
-
-    it('will initialize a todo collection', function () {
-      subject();
-      expect(instance.todos instanceof ToDos).toBe(true);
-    });
   });
 
   describe('render', function () {
@@ -63,12 +50,12 @@ define([
 
         it('adds item to collection', function () {
           subject();
-          expect(instance.todos.length).toEqual(1);
+          expect(instance.model.length).toEqual(1);
         });
 
         it('sets title on the added todo', function () {
           subject();
-          expect(instance.todos.first().get("title")).toEqual('nu');
+          expect(instance.model.first().get("title")).toEqual('nu');
         });
 
         it('clears the input after adding', function () {
@@ -84,7 +71,7 @@ define([
 
         it('does not add item to collection', function () {
           subject();
-          expect(instance.todos.length).toEqual(0);
+          expect(instance.model.length).toEqual(0);
         })
       })
     });

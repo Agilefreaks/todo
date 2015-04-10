@@ -3,15 +3,10 @@ define([
   'backbone',
   'text!templates/new_todo_view.ejs',
   'model/todo',
-  'collection/todos'
-], function ($, Backbone, newToDoTemplate, ToDo, ToDos) {
+], function ($, Backbone, newToDoTemplate, ToDo) {
   return Backbone.View.extend({
     events: {
       'click #newToDo': 'onNewTodoClicked'
-    },
-
-    initialize: function () {
-      this.todos = new ToDos();
     },
 
     render: function () {
@@ -23,11 +18,11 @@ define([
     onNewTodoClicked: function (e) {
       e && e.preventDefault();
       var value = this.$('input[type="text"]').val();
-      if (value == '') {
+      if (!/\S/.test(value)) {
         return;
       }
 
-      this.todos.add(new ToDo({title: value}));
+      this.model.add(new ToDo({title: value}));
       this.$('input[type="text"]').val('');
     }
   });
