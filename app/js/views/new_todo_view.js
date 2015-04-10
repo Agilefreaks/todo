@@ -2,16 +2,11 @@ define([
   'jquery',
   'backbone',
   'text!templates/new_todo_view.ejs',
-  'model/todo',
-  'collection/todos'
-], function ($, Backbone, newToDoTemplate, ToDo, ToDos) {
+  'model/todo'
+], function ($, Backbone, newToDoTemplate, ToDo) {
   return Backbone.View.extend({
     events: {
       'click #newToDo': 'onNewTodoClicked'
-    },
-
-    initialize: function () {
-      this.todos = new ToDos();
     },
 
     render: function () {
@@ -27,7 +22,7 @@ define([
         return;
       }
 
-      this.todos.add(new ToDo({title: value}));
+      this.model.add(new ToDo({title: value}));
       this.$('input[type="text"]').val('');
     }
   });

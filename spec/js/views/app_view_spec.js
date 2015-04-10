@@ -1,8 +1,9 @@
 define([
   'views/app_view',
   'views/new_todo_view',
+  'views/todos_view',
   'ejs'
-], function (Index, ToDoView) {
+], function (Index, NewToDoView, ToDosView) {
   var instance, subject;
 
   beforeEach(function () {
@@ -19,10 +20,20 @@ define([
       }
     });
 
-    it('will initialize a todo_view', function () {
+    it('will initialize a new_todo_view', function () {
       subject();
-      expect(instance.todoView instanceof ToDoView).toBe(true);
+      expect(instance.newToDoView instanceof NewToDoView).toBe(true);
     });
+
+    it('will set the same collection on the new_todo_view and todos', function () {
+      subject();
+      expect(instance.newToDoView.model).toBe(instance.todosView.model);
+    });
+
+    it('will initialize a todos_view', function () {
+      subject();
+      expect(instance.todosView instanceof ToDosView).toBe(true);
+    })
   });
 
   describe('render', function () {
@@ -32,9 +43,14 @@ define([
       }
     });
 
-    it('displays todoView in appView', function () {
+    it('displays newTodoView in appView', function () {
       subject();
-      expect($.contains(instance.el, instance.todoView.el)).toBe(true);
+      expect($.contains(instance.el, instance.newToDoView.el)).toBe(true);
     });
-  });
+
+    it('displays todosView in appView', function () {
+      subject();
+      expect($.contains(instance.el, instance.newToDoView.el)).toBe(true);
+    })
+  })
 });
