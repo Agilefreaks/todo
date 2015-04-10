@@ -2,9 +2,8 @@ define([
   'views/app_view',
   'views/new_todo_view',
   'views/todos_view',
-  'services/session_service',
   'ejs'
-], function (Index, NewToDoView, ToDosView, SessionService) {
+], function (Index, NewToDoView, ToDosView) {
   var instance, subject;
 
   beforeEach(function () {
@@ -26,21 +25,15 @@ define([
       expect(instance.newToDoView instanceof NewToDoView).toBe(true);
     });
 
-    it('will set the model on the new_todo_view', function () {
+    it('will set the same collection on the new_todo_view and todos', function () {
       subject();
-      expect(instance.newToDoView.model).toBe(SessionService.todos);
+      expect(instance.newToDoView.model).toBe(instance.todosView.model);
     });
 
     it('will initialize a todos_view', function () {
       subject();
       expect(instance.todosView instanceof ToDosView).toBe(true);
-    });
-
-    it('will set the model on the todos_view', function () {
-      subject();
-      expect(instance.newToDoView.model).toBe(SessionService.todos);
-    });
-
+    })
   });
 
   describe('render', function () {
@@ -50,7 +43,7 @@ define([
       }
     });
 
-    it('displays todoView in appView', function () {
+    it('displays newTodoView in appView', function () {
       subject();
       expect($.contains(instance.el, instance.newToDoView.el)).toBe(true);
     });
@@ -58,6 +51,6 @@ define([
     it('displays todosView in appView', function () {
       subject();
       expect($.contains(instance.el, instance.newToDoView.el)).toBe(true);
-    });
-  });
+    })
+  })
 });

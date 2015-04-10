@@ -4,14 +4,14 @@ define([
   'text!templates/app_view.ejs',
   'views/new_todo_view',
   'views/todos_view',
-  'collection/todos',
-  'services/session_service'
-], function ($, Backbone, appViewTemplate, NewToDoView, ToDosView, ToDos, SessionService) {
+  'collection/todos'
+], function ($, Backbone, appViewTemplate, NewToDoView, ToDosView, ToDos) {
   return Backbone.View.extend({
+
     initialize: function () {
-      SessionService.todos = new ToDos();
-      this.newToDoView = new NewToDoView({model: SessionService.todos});
-      this.todosView = new ToDosView({model: SessionService.todos});
+      var todos = new ToDos();
+      this.newToDoView = new NewToDoView({model: todos});
+      this.todosView = new ToDosView({model: todos});
     },
 
     render: function () {

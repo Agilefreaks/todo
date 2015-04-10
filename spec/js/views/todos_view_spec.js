@@ -24,20 +24,12 @@ define([
       }
     });
 
-    it('will initialize a todo_item_view', function () {
-      subject();
-      expect(instance.todoitemView instanceof ToDoItemView).toBe(true);
-    });
-
-    it('will set the last item in the collection as model', function () {
-      subject();
-      expect(instance.todoitemView.model).toBe(newToDo);
-    });
-
     it('will render a todo_item_view', function () {
+      var $expectedContent = $('<div />');
+      spyOn(ToDoItemView.prototype, 'render').and.returnValue({$el: $expectedContent});
       subject();
-      expect($.contains(instance.el, instance.todoitemView.el)).toBe(true);
-    });
+      expect($.contains(instance.el, $expectedContent[0])).toBe(true);
+    })
   });
 
   describe('render', function () {
@@ -50,6 +42,6 @@ define([
     it('will render an ul', function () {
       subject();
       expect(instance.$el.prop("tagName")).toEqual("UL");
-    });
-  });
+    })
+  })
 });

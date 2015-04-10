@@ -2,9 +2,8 @@ define([
   'jquery',
   'backbone',
   'text!templates/todos_view.ejs',
-  'views/todo_item_view',
-  'model/todo'
-], function ($, Backbone, ToDosTemplate, TodoItemView, ToDo) {
+  'views/todo_item_view'
+], function ($, Backbone, ToDosTemplate, TodoItemView) {
   return Backbone.View.extend({
     tagName: 'ul',
 
@@ -13,8 +12,8 @@ define([
     },
 
     onToDoAdded: function (model) {
-      this.todoitemView = new TodoItemView({model: model});
-      this.$el.append(this.todoitemView.render().$el);
+      var todoItemView = new TodoItemView({model: model});
+      this.$el.append(todoItemView.render().$el);
     },
 
     render: function () {

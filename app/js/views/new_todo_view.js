@@ -2,7 +2,7 @@ define([
   'jquery',
   'backbone',
   'text!templates/new_todo_view.ejs',
-  'model/todo',
+  'model/todo'
 ], function ($, Backbone, newToDoTemplate, ToDo) {
   return Backbone.View.extend({
     events: {
@@ -18,7 +18,7 @@ define([
     onNewTodoClicked: function (e) {
       e && e.preventDefault();
       var value = this.$('input[type="text"]').val();
-      if (!/\S/.test(value)) {
+      if (value == '') {
         return;
       }
 
