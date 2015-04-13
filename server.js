@@ -8,6 +8,8 @@ app = connect()
   .use('/js/templates/', connect.static('app/js/templates/'))
   .use('/node_modules', connect.static('node_modules'));
 
-http.createServer(app).listen(8080, function() {
-  console.log('Running on http://localhost:8080');
+var port = process.env.PORT || 8080;
+
+http.createServer(app).listen(port, function() {
+  console.log('Running on http://localhost:' + port);
 });
