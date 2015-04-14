@@ -18,7 +18,7 @@ define([
     onNewTodoClicked: function (e) {
       e && e.preventDefault();
       var value = this.$('input[type="text"]').val();
-      if (value == '') {
+      if (value.trim() == '') {
         return;
       }
 
