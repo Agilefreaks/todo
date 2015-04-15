@@ -80,5 +80,47 @@ define([
         })
       });
     });
+
+    describe('click checkbox', function () {
+      beforeEach(function () {
+        subject = function () {
+          instance.$('#checkboxdone').change();
+        }
+      });
+
+      describe('when done is false', function () {
+        beforeEach(function () {
+          model.set({done: false});
+          instance.$('label').removeClass();
+        });
+
+        it('will change the done property to true', function () {
+          subject();
+          expect(model.get('done')).toBe(true);
+        });
+
+        it('will add the line-through class', function () {
+          subject();
+          expect(instance.$('label').attr('class')).toEqual('line-through');
+        })
+      });
+
+      describe('when done is true', function () {
+        beforeEach(function () {
+          model.set('done', true);
+          instance.$('label').addClass('line-through');
+        });
+
+        it('will change the done property to false', function () {
+          subject();
+          expect(model.get('done')).toBe(false);
+        });
+
+        it('will remove the line-through class', function () {
+          subject();
+          expect(instance.$('label').attr('class')).toEqual('');
+        })
+      });
+    });
   });
 });

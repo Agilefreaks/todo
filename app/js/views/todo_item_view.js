@@ -7,7 +7,8 @@ define([
     tagName: 'li',
 
     events: {
-      'click #btnDelete': 'btnDeleteClicked'
+      'click #btnDelete': 'delete',
+      'change #checkboxdone': 'toggle'
     },
 
     render: function () {
@@ -16,9 +17,14 @@ define([
       return this
     },
 
-    btnDeleteClicked: function () {
+    delete: function () {
       this.model.destroy();
       this.remove();
+    },
+
+    toggle: function () {
+      this.model.set('done', !this.model.get('done'));
+      this.$('label').toggleClass('line-through');
     }
   });
 });
