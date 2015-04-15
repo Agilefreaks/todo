@@ -57,7 +57,7 @@ define([
     describe('click delete button', function () {
       beforeEach(function () {
         subject = function () {
-          instance.$('.btnDelete').click();
+          instance.$('#btnDelete').click();
         }
       });
 
@@ -77,7 +77,6 @@ define([
         it('will remove the rendered view', function () {
           subject();
           expect($.contains($parent.get(0), instance.el)).toBe(false);
-
         })
       });
     });

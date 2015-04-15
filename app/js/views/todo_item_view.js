@@ -7,7 +7,7 @@ define([
     tagName: 'li',
 
     events: {
-      'click .btnDelete': 'btnDeleteClicked'
+      'click #btnDelete': 'btnDeleteClicked'
     },
 
     render: function () {
