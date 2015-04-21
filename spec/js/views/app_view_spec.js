@@ -1,32 +1,34 @@
 define([
   'views/app_view',
-  'ejs'
-], function (Index) {
-  var instance, subject;
+  'views/new_todo_view'
+], function (Index, TodoView) {
+  describe('Index', function () {
+    var instance, subject;
 
-  beforeEach(function () {
-    instance = new Index({el: $('body')});
-    subject = function () {
-      return instance;
-    }
-  });
-
-  describe('render', function () {
-    it ('will get rendered', function () {
-      subject().render();
-      expect(subject().$el.text()).toEqual(jasmine.stringMatching(/The current date is:/));
-    })
-  });
-
-  describe('currentDate', function () {
     beforeEach(function () {
+      instance = new Index({el: $('body')});
       subject = function () {
-        return instance.currentDate();
+        return instance;
       }
     });
 
-    it('returns a date', function () {
-      expect(subject() instanceof Date).toBe(true);
+    it('initializes a TodoView', function () {
+      expect(instance.todoView instanceof TodoView).toBe(true);
+    });
+
+    describe('render', function () {
+      beforeEach(function () {
+        subject = function () {
+          return instance.render();
+        }
+      });
+
+      it ('renders TodoView', function () {
+        subject();
+
+        expect($.contains(instance.el, instance.todoView.el)).toBe(true);
+      });
     });
   });
 });
+

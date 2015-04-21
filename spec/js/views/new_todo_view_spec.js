@@ -17,7 +17,7 @@ define([
       instance.render();
 
       subject = function () {
-        instance.$el.find('input#submit').click();
+        instance.$('input#submit').click();
       }
     });
 
@@ -41,6 +41,12 @@ define([
   });
 
   describe('render', function () {
+    beforeEach(function () {
+      instance.render();
+    });
 
-  })
+    it ('will get rendered', function () {
+      expect(instance.$('input#title').length).toEqual(1);
+    })
+  });
 });
