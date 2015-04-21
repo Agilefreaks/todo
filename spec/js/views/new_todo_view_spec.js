@@ -1,16 +1,17 @@
 define([
   'views/new_todo_view',
   'collections/todos'
-], function (NewTodo) {
+], function (NewTodo, Todos) {
   var instance, subject, collection;
 
   beforeEach(function () {
 
-    instance = new NewTodo();
+    collection = new Todos();
+    instance = new NewTodo({ collection: collection});
     subject = function () {
       return instance;
     };
-    collection = subject().collection;
+
   });
 
   describe('render', function () {
