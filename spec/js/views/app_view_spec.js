@@ -23,10 +23,18 @@ define([
         }
       });
 
-      it ('renders TodoView', function () {
+      it ('appends TodoView element to view element', function () {
         subject();
 
         expect($.contains(instance.el, instance.todoView.el)).toBe(true);
+      });
+
+      it('renders todo view', function () {
+        var renderTodoViewSpy = spyOn(instance.todoView, 'render').and.callThrough();
+
+        subject();
+
+        expect(renderTodoViewSpy).toHaveBeenCalled();
       });
     });
   });

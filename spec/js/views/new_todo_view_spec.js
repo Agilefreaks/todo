@@ -1,18 +1,39 @@
 define([
   'views/new_todo_view',
   'collections/todos'
-], function (NewTodo, Todos) {
+], function (NewTodo) {
   var instance, subject, collection;
 
   beforeEach(function () {
-    collection = new Todos();
-    instance = new NewTodo({collection: collection});
+
+    instance = new NewTodo();
     subject = function () {
       return instance;
-    }
+    };
+    collection = subject().collection;
   });
 
-  describe('addTodo', function () {
+  describe('render', function () {
+    beforeEach(function () {
+      subject = function () {
+        instance.render();
+      }
+    });
+
+    it ('render text input', function () {
+      subject();
+
+      expect(instance.$('input[type="text"]').length).toEqual(1);
+    });
+
+    it ('render button input', function () {
+      subject();
+
+      expect(instance.$('input[type="submit"]').length).toEqual(1);
+    });
+  });
+
+  describe('click on submit button', function () {
     beforeEach(function () {
       instance.render();
 
@@ -21,32 +42,34 @@ define([
       }
     });
 
-    it('will add a new item to the todo collection', function () {
-      instance.$title().val('a todo');
-      subject();
-      expect(collection.length).toBe(1)
+    describe('when text input has value', function () {
+      beforeEach(function () {
+        instance.$title().val('a todo');
+      });
+
+      it('will add a new item to the todo collection', function () {
+        subject();
+
+        expect(collection.length).toBe(1)
+      });
+
+      it('will clear the title input', function () {
+        subject();
+
+        expect(instance.$title().val()).toBe('');
+      });
     });
 
-    it('will not add a empty item', function () {
-      instance.$title().val('  ');
-      subject();
-      expect(collection.length).toBe(0)
-    });
+    describe('when text input has empty value', function () {
+      beforeEach(function () {
+        instance.$title().val('  ')
+      });
 
-    it('will clear the title input', function () {
-      instance.$title().val('some value');
-      subject();
-      expect(instance.$title().val()).toBe('');
-    });
-  });
+      it('will not add a empty item', function () {
+        subject();
 
-  describe('render', function () {
-    beforeEach(function () {
-      instance.render();
+        expect(collection.length).toBe(0);
+      });
     });
-
-    it ('will get rendered', function () {
-      expect(instance.$('input#title').length).toEqual(1);
-    })
   });
 });

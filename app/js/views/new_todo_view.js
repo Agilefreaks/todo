@@ -3,12 +3,16 @@ define([
   'jquery',
   'backbone',
   'text!templates/new_todo_view.ejs',
-  'models/todo'
-  //'app_view'
-], function (_, $, Backbone, todoTemplate, Todo) {
-  var TodoView =  Backbone.View.extend({
+  'models/todo',
+  'collections/todos'
+], function (_, $, Backbone, todoTemplate, Todo, Todos) {
+  return Backbone.View.extend({
     events: {
-      "click input#submit": "addTodo"
+      'click input#submit': 'addTodo'
+    },
+
+    initialize: function() {
+      this.collection = new Todos();
     },
 
     $title: function () {
@@ -32,8 +36,7 @@ define([
       var compiledTemplate = ejs.render(todoTemplate, {}, {});
       this.$el.empty();
       this.$el.append(compiledTemplate);
-      return this
+      return this;
     }
   });
-  return TodoView;
 });
