@@ -3,16 +3,11 @@ define([
   'jquery',
   'backbone',
   'text!templates/new_todo_view.ejs',
-  'models/todo',
-  'collections/todos'
-], function (_, $, Backbone, todoTemplate, Todo, Todos) {
+  'models/todo'
+], function (_, $, Backbone, todoTemplate, Todo) {
   return Backbone.View.extend({
     events: {
       'click input#submit': 'addTodo'
-    },
-
-    initialize: function() {
-      this.collection = new Todos();
     },
 
     $title: function () {
