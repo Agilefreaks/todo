@@ -32,7 +32,7 @@ define([
       }
     });
 
-    it('calls render on the index view', function () {
+    it('calls render on the app view', function () {
       var renderSpy = spyOn(AppView.prototype, 'render').and.callThrough();
 
       subject();
