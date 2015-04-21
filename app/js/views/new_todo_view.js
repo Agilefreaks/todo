@@ -1,21 +1,30 @@
 define([
+  'lodash',
   'jquery',
   'backbone',
   'text!templates/new_todo_view.ejs',
   'models/todo'
-], function ($, Backbone, indexTemplate, Todo) {
+], function (_, $, Backbone, indexTemplate, Todo) {
   return Backbone.View.extend({
     events: {
       "click input#submit": "addTodo"
     },
 
+    $title: function () {
+      return this.$el.find('#title')
+    },
+
     addTodo: function (e) {
       e.preventDefault();
 
-      var val = $('input#title').val();
-      var model = new Todo({'title': val});
+      var val = this.$title().val();
+      if (_.trim(val) == '') {
+        return
+      }
 
-      this.collection.add(model)
+      var model = new Todo({'title': val});
+      this.collection.add(model);
+      this.$title().val('');
     },
 
     render: function () {
@@ -26,6 +35,3 @@ define([
     }
   });
 });
-
-
-

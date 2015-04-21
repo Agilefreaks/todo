@@ -22,9 +22,25 @@ define([
     });
 
     it('will add a new item to the todo collection', function () {
-      instance.$el.find('input#title').val('a todo');
+      instance.$title().val('a todo');
       subject();
       expect(collection.length).toBe(1)
-    })
+    });
+
+    it('will not add a empty item', function () {
+      instance.$title().val('  ');
+      subject();
+      expect(collection.length).toBe(0)
+    });
+
+    it('will clear the title input', function () {
+      instance.$title().val('some value');
+      subject();
+      expect(instance.$title().val()).toBe('');
+    });
   });
+
+  describe('render', function () {
+
+  })
 });
