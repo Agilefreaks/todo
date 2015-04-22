@@ -4,7 +4,8 @@ requirejs.config({
     lodash: '/node_modules/lodash/index',
     backbone: '/node_modules/backbone/backbone',
     ejs: '/node_modules/ejs/ejs',
-    text: '/node_modules/requirejs-text/text'
+    text: '/node_modules/requirejs-text/text',
+    bootstrap: '/node_modules/bootstrap/dist/js/bootstrap.min'
   },
 
   baseUrl: 'js',
