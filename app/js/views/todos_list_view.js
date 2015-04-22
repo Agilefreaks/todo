@@ -8,6 +8,7 @@ define([
 ], function (_, $, Backbone, todosTemplate, TodoView) {
   return Backbone.View.extend({
     tagName: 'ul',
+    className: 'list-group',
 
     onNewModel: function(model){
       this.todoItem = new TodoView({ model: model });

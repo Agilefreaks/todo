@@ -1,5 +1,11 @@
-<li>
-  <input type="checkbox">
-  <span><%= model.get('title') %></span>
-  <button type="button">Delete</button>
-</li>
+<div class="input-group">
+  <span class="input-group-addon">
+    <input type="checkbox">
+  </span>
+
+  <span class="form-control"><%= model.get('title') %></span>
+
+  <span class="input-group-btn">
+    <button type="button" class="btn btn-danger btn-default">Delete</button>
+  </span>
+</div>
