@@ -1,7 +1,7 @@
 define([
   'views/app_view',
   'views/new_todo_view'
-], function (Index, TodoView) {
+], function (Index, NewTodoView) {
   describe('Index', function () {
     var instance, subject;
 
@@ -13,7 +13,7 @@ define([
     });
 
     it('initializes a TodoView', function () {
-      expect(instance.todoView instanceof TodoView).toBe(true);
+      expect(instance.newTodoView instanceof NewTodoView).toBe(true);
     });
 
     describe('render', function () {
@@ -26,11 +26,11 @@ define([
       it ('appends TodoView element to view element', function () {
         subject();
 
-        expect($.contains(instance.el, instance.todoView.el)).toBe(true);
+        expect($.contains(instance.el, instance.newTodoView.el)).toBe(true);
       });
 
       it('renders todo view', function () {
-        var renderTodoViewSpy = spyOn(instance.todoView, 'render').and.callThrough();
+        var renderTodoViewSpy = spyOn(instance.newTodoView, 'render').and.callThrough();
 
         subject();
 

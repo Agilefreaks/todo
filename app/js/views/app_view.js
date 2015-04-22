@@ -10,14 +10,14 @@ define([
     collection: new Todos(),
 
     initialize: function() {
-      this.todoView = new NewTodoView({ collection: this.collection });
+      this.newTodoView = new NewTodoView({ collection: this.collection });
       this.listView = new ListView({ collection: this.collection });
     },
 
     render: function () {
       this.$el.empty();
 
-      this.$el.append(this.todoView.render().$el);
+      this.$el.append(this.newTodoView.render().$el);
       this.$el.append(this.listView.render().$el);
 
       return this;
