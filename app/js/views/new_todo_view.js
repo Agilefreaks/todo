@@ -4,7 +4,7 @@ define([
   'backbone',
   'text!templates/new_todo_view.ejs',
   'models/todo'
-], function (_, $, Backbone, todoTemplate, Todo) {
+], function (_, $, Backbone, newTodoTemplate, Todo) {
   return Backbone.View.extend({
     events: {
       'click input#submit': 'addTodo'
@@ -28,7 +28,7 @@ define([
     },
 
     render: function () {
-      var compiledTemplate = ejs.render(todoTemplate, {}, {});
+      var compiledTemplate = ejs.render(newTodoTemplate, {}, {});
       this.$el.empty();
       this.$el.append(compiledTemplate);
       return this;

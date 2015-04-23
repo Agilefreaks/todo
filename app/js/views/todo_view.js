@@ -10,16 +10,12 @@ define([
     className: 'list-group-item',
 
     events: {
-      'mouseover': 'showDeleteButton',
-      'mouseout': 'hideDeleteButton'
+      'mouseover': 'toggleButtonShow',
+      'mouseout': 'toggleButtonShow'
     },
 
-    showDeleteButton: function () {
-      this.$('button').addClass('show');
-    },
-
-    hideDeleteButton: function () {
-      this.$('button').removeClass('show');
+    toggleButtonShow: function () {
+      this.$('button').toggleClass('show');
     },
 
     render: function () {
