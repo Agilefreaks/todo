@@ -24,19 +24,12 @@ define([
     },
 
     deleteTodo: function(){
-      this.model.set({'isDeleted': true });
+      this.$el.remove();
+      this.model.destroy();
     },
 
     onStatusChange: function () {
-      if(this.model.get('isDeleted')){
-        this.onDelete();
-        return;
-      }
       this.$('span').toggleClass('done');
-    },
-
-    onDelete: function () {
-      this.remove();
     },
 
     render: function () {

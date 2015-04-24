@@ -7,6 +7,7 @@ define([
   beforeEach(function () {
     todo = new Todo({title: 'my todo'});
     instance = new TodoView({ model: todo });
+
     subject = function () {
       return instance;
     };
@@ -136,16 +137,18 @@ define([
         }
       });
 
-      it('will add status deleted to the model', function () {
-        subject();
-
-        expect(todo.get('isDeleted')).toBe(true)
-      });
-
       it('will remove the element', function () {
         subject();
 
         expect($(document).find(instance.$el).length).toBe(0)
+      });
+
+      it('will delete the model from the collection', function () {
+        var renderTodoViewSpy = spyOn(todo, 'destroy').and.callThrough();
+
+        subject();
+
+        expect(renderTodoViewSpy).toHaveBeenCalled();
       });
     });
   });
