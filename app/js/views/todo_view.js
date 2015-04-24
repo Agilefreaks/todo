@@ -11,7 +11,8 @@ define([
     events: {
       'mouseover': 'toggleButtonShow',
       'mouseout': 'toggleButtonShow',
-      'click .checkbox': 'checkTodo'
+      'click .checkbox': 'checkTodo',
+      'click button': 'deleteTodo'
     },
 
     toggleButtonShow: function () {
@@ -22,8 +23,20 @@ define([
       this.model.set({'status': this.$('.checkbox').is(':checked') });
     },
 
+    deleteTodo: function(){
+      this.model.set({'isDeleted': true });
+    },
+
     onStatusChange: function () {
+      if(this.model.get('isDeleted')){
+        this.onDelete();
+        return;
+      }
       this.$('span').toggleClass('done');
+    },
+
+    onDelete: function () {
+      this.remove();
     },
 
     render: function () {

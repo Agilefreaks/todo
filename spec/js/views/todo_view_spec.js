@@ -117,6 +117,38 @@ define([
       });
     });
   });
+
+  describe('delete list item', function () {
+    beforeEach(function () {
+      instance.render();
+
+      $('body').append(instance.$el);
+    });
+
+    afterEach(function () {
+      instance.remove();
+    });
+
+    describe('when list item is deleted', function () {
+      beforeEach(function () {
+        subject = function () {
+          instance.$('button').click();
+        }
+      });
+
+      it('will add status deleted to the model', function () {
+        subject();
+
+        expect(todo.get('isDeleted')).toBe(true)
+      });
+
+      it('will remove the element', function () {
+        subject();
+
+        expect($(document).find(instance.$el).length).toBe(0)
+      });
+    });
+  });
 });
 
 
