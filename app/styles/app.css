@@ -3,6 +3,10 @@
     height:34px;
     line-height: 34px;
 }
+.col-md-10 span:before,
+.col-md-10 span:after {
+    content: "\00a0\00a0";
+}
 .col-md-1 input[type='checkbox']{
     float:left;
     margin:10px 0px;
@@ -23,4 +27,8 @@ label{
 }
 .col-md-1 button{
     display: none;
+}
+.done{
+    text-decoration: line-through;
+    color:green;
 }

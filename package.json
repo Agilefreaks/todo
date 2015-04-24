@@ -13,21 +13,20 @@
     "font-awesome": "latest",
     "bootstrap": "latest"
   },
-
   "devDependencies": {
-    "jasmine-core": "latest",
-    "jasmine": "latest",
     "grunt": "latest",
+    "grunt-exec": "latest",
+    "jasmine": "latest",
+    "jasmine-core": "latest",
     "karma": "latest",
+    "karma-chrome-launcher": "^0.1.8",
+    "karma-coverage": "latest",
+    "karma-html-reporter": "latest",
     "karma-jasmine": "latest",
     "karma-phantomjs-launcher": "latest",
-    "karma-html-reporter": "latest",
-    "karma-coverage": "latest",
     "karma-requirejs": "latest",
-    "karma-sinon": "latest",
-    "grunt-exec": "latest"
+    "karma-sinon": "latest"
   },
-
   "scripts": {
     "grunt": "node_modules/.bin/grunt"
   }

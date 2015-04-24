@@ -2,10 +2,10 @@ define([
   'views/todo_view',
   'models/todo'
 ], function (TodoView, Todo) {
-  var instance, subject;
+  var instance, subject, todo;
 
   beforeEach(function () {
-    var todo = new Todo({title: 'my todo'});
+    todo = new Todo({title: 'my todo'});
     instance = new TodoView({ model: todo });
     subject = function () {
       return instance;
@@ -59,6 +59,61 @@ define([
         subject();
 
         expect(instance.$('button').hasClass('show')).toBe(false);
+      });
+    });
+  });
+
+  describe('check list item', function () {
+    beforeEach(function () {
+      instance.render();
+
+      $('body').append(instance.$el);
+    });
+
+    afterEach(function () {
+      instance.remove();
+    });
+
+    describe('when list item is checked', function () {
+      beforeEach(function () {
+        subject = function () {
+          instance.$('.checkbox').click();
+        }
+      });
+
+      it('will add status done to the model', function () {
+        subject();
+
+        expect(todo.get('status')).toBe(true)
+      });
+
+      it('will add class done to the element', function(){
+        subject();
+
+        expect(instance.$('span').hasClass('done')).toBe(true)
+      });
+    });
+
+    describe('when list item is unchecked', function () {
+      beforeEach(function () {
+        instance.$('.checkbox').prop('checked', true);
+        subject = function () {
+          instance.$('.checkbox').click();
+        }
+      });
+
+      it('will add status undone to the model', function () {
+        subject();
+
+        expect(todo.get('status')).toBe(false)
+      });
+
+      it('will remove class done from the element', function(){
+        instance.$('span').addClass('done');
+
+        subject();
+
+        expect(instance.$('span').hasClass('done')).toBe(false)
       });
     });
   });
