@@ -4,12 +4,12 @@ define([
   'text!templates/app_view.ejs',
   'collections/todo_collection',
   'models/todo_model'
-], function ($, Backbone, indexTemplate, todoCollection, todoModel) {
+], function ($, Backbone, indexTemplate, TodoCollection, TodoModel) {
   return Backbone.View.extend({
     el: $('#todo-app'),
 
     initialize: function () {
-      this.todos = new todoCollection();
+      this.todos = new TodoCollection();
     },
 
     events: {
@@ -32,9 +32,9 @@ define([
     },
 
     _createTodo: function (text) {
-      if (text.length === 0) return;
+      if (text.length === 0 ) return;
 
-      this.todos.add(new todoModel({text: text}))
+      this.todos.add(new TodoModel({text: text}))
     }
   });
 });
