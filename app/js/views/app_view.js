@@ -1,20 +1,40 @@
 define([
   'jquery',
   'backbone',
-  'text!templates/app_view.ejs'
-], function ($, Backbone, indexTemplate) {
+  'text!templates/app_view.ejs',
+  'collections/todo_collection',
+  'models/todo_model'
+], function ($, Backbone, indexTemplate, TodoCollection, TodoModel) {
   return Backbone.View.extend({
     el: $('#todo-app'),
 
-    currentDate: function () {
-      return new Date();
+    initialize: function () {
+      this.todos = new TodoCollection();
+    },
+
+    events: {
+      'submit': 'onSubmit'
+    },
+
+    onSubmit: function (e) {
+      var $input = this.$('#inputTodoText');
+
+      this._createTodo($input.val());
+      $input.val('');
+
+      e.preventDefault();
     },
 
     render: function () {
-      var compiledTemplate = ejs.render(indexTemplate, {view: this, model: this.model}, {});
-      this.$el.empty();
-      this.$el.append(compiledTemplate);
+      var compiledTemplate = ejs.render(indexTemplate, {}, {});
+      this.$el.html(compiledTemplate);
       return this
+    },
+
+    _createTodo: function (text) {
+      if (text.length === 0 ) return;
+
+      this.todos.add(new TodoModel({text: text}))
     }
   });
 });
