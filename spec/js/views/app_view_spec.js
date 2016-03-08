@@ -8,25 +8,36 @@ define([
     instance = new Index({el: $('body')});
     subject = function () {
       return instance;
-    };
+    }
   });
 
-  describe('render', function () {
-    it('will get rendered', function () {
-      subject().render();
-      expect(subject().$el.text()).toEqual(jasmine.stringMatching(/The current date is:/));
+  describe('intial state', function(){
+    it('will be empty', function(){
+        subject().render();
+        expect(subject().collection.length).toBe(0);
+    })
+  });
+  describe('adding an items on click event', function(){
+    var spy;
+    beforeEach(function(){
+      spy = spyOn(subject(),'addItems');
+      subject().addItems('adga');
     });
+
+    it('should call click event handler',function(){
+      expect(spy).toHaveBeenCalled();
+    });
+
   });
 
-  describe('currentDate', function () {
-    beforeEach(function () {
-      subject = function () {
-        return instance.currentDate();
-      };
-    });
-
-    it('returns a date', function () {
-      expect(subject() instanceof Date).toBe(true);
+  describe('adding an items on key event enter', function(){
+    var spy;
+    beforeEach(function(){
+     spy = spyOn(subject(),'keyAction');
+     subject().keyAction('adga');
+   });
+   it('should call key event handler',function(){
+      expect(spy).toHaveBeenCalled();
     });
   });
 });
