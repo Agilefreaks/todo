@@ -1,9 +1,9 @@
 define([
   'backbone'
-],function (Backbone) {
+], function (Backbone) {
   return Backbone.Model.extend({
-    default: {
-      name: "empty",
+    defaults: {
+      name: 'empty',
       done: false
     }
   });

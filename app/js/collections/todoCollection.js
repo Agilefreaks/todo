@@ -1,8 +1,11 @@
 define([
   'backbone',
   'models/todoModel'
-],function (Backbone, todoModel) {
-  return todoCollection = Backbone.Collection.extend({
+], function (Backbone, todoModel) {
+  var todoCollection;
+
+  todoCollection = Backbone.Collection.extend({
     model: todoModel
   });
+  return todoCollection;
 });

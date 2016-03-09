@@ -1,3 +1,5 @@
+var CONSTANT_ZERO = 0;
+
 define([
   'views/app_view',
   'ejs'
@@ -8,31 +10,36 @@ define([
     instance = new Index({el: $('body')});
     subject = function () {
       return instance;
-    }
+    };
   });
 
-  describe('adding new todo', function(){
-    beforeEach(function(){
+  describe('adding new todo', function () {
+    beforeEach(function () {
       subject().render();
-    })
-    it('our todoList should be empty at first render', function(){
-      expect(subject().todoCollection.length).toBe(0);
+    });
+    it('our todoList should be empty at first render', function () {
+      expect(subject().todoCollection.length).toBe(CONSTANT_ZERO);
     });
   });
 
-  describe('adding new todo', function(){
-    beforeEach(function(){
+  describe('adding new todo', function () {
+    beforeEach(function () {
       subject().render();
     });
 
-    it('should add it', function(){
+    it('should add it', function () {
       subject().addItems('asfsa');
-      expect(subject().todoCollection.length).not.toBe(0);
+      expect(subject().todoCollection.length).not.toBe(CONSTANT_ZERO);
     });
 
-    it("for empty todo it shouldn't add it", function(){
+    it("for empty todo it shouldn't add it", function () {
       subject().addItems('');
-      expect(subject().todoCollection.length).toBe(0);
+      expect(subject().todoCollection.length).toBe(CONSTANT_ZERO);
+    });
+
+    it("for todo with full of white spaces, shouldn't add it", function () {
+      subject().addItems('   ');
+      expect(subject().todoCollection.length).toBe(CONSTANT_ZERO);
     });
   });
 });
