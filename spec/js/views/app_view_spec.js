@@ -1,3 +1,5 @@
+var CONSTANT_ZERO = 0;
+
 define([
   'views/app_view',
   'ejs'
@@ -11,22 +13,33 @@ define([
     };
   });
 
-  describe('render', function () {
-    it('will get rendered', function () {
+  describe('adding new todo', function () {
+    beforeEach(function () {
       subject().render();
-      expect(subject().$el.text()).toEqual(jasmine.stringMatching(/The current date is:/));
+    });
+    it('our todoList should be empty at first render', function () {
+      expect(subject().todoCollection.length).toBe(CONSTANT_ZERO);
     });
   });
 
-  describe('currentDate', function () {
+  describe('adding new todo', function () {
     beforeEach(function () {
-      subject = function () {
-        return instance.currentDate();
-      };
+      subject().render();
     });
 
-    it('returns a date', function () {
-      expect(subject() instanceof Date).toBe(true);
+    it('should add it', function () {
+      subject().addItems('asfsa');
+      expect(subject().todoCollection.length).not.toBe(CONSTANT_ZERO);
+    });
+
+    it("for empty todo it shouldn't add it", function () {
+      subject().addItems('');
+      expect(subject().todoCollection.length).toBe(CONSTANT_ZERO);
+    });
+
+    it("for todo with full of white spaces, shouldn't add it", function () {
+      subject().addItems('   ');
+      expect(subject().todoCollection.length).toBe(CONSTANT_ZERO);
     });
   });
 });
