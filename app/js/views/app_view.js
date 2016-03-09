@@ -1,3 +1,5 @@
+@const KEY_ENTER_CODE = 13;
+
 define([
   'jquery',
   'backbone',
@@ -6,38 +8,39 @@ define([
 ], function ($, Backbone, indexTemplate, todoCollection) {
   return Backbone.View.extend({
     el: $('#todo-app'),
-    KEY_ENTER_CODE: 13,
+    myCollection: Object,
 
     events: {
-      'click #addButton': 'addItemsHandler',
-      'keydown #input': 'keyAction'
+      'click #addButton': 'onAddButtonClick',
+      'keydown #input': 'onKeyDown'
     },
 
-    addItemsHandler:function(){
-      var input = $('#input');
-      var newItem = input.value;
-      addItems(newItem);
-      input.value = "";
+    onAddButtonClick: function () {
+      var input = this.$('#input');
+      var newItem = input.val();
+      this.addItems(newItem);
+      input.val('');
     },
 
-    addItems: function(item){
-      if(_.trim(item) !== ''){
-        this.collection.add({name: item, done: false});
+    addItems: function (item) {
+      if(!_.isEmpty(_.trim(item))){
+        var newItem = {
+          name: item,
+          done: false
+        };
+        this.myCollection.add(newItem);
       }
     },
 
-    keyAction: function(e){
+    onKeyDown: function (e) {
       if(e.which === KEY_ENTER_CODE){
-        var input = $('#input');
-        var newItem = input.value;
-        addItems(newItem);
-        input.value = "";
+        this.onAddButtonClick();
       }
     },
 
 
     render: function () {
-      this.collection = new todoCollection();
+      this.myCollection = new todoCollection();
       var compiledTemplate = ejs.render(indexTemplate, {view: this, model: this.model}, {});
       this.$el.empty();
       this.$el.append(compiledTemplate);
