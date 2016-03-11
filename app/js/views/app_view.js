@@ -1,19 +1,18 @@
-var KEY_ENTER_CODE = 13;
-
 define([
   'jquery',
   'backbone',
   'text!templates/app_view.ejs',
-  'collections/todoCollection'
-], function ($, Backbone, indexTemplate, TodoCollection) {
+  'text!templates/todo_view.ejs',
+  'models/todo',
+  'collections/todos',
+  'views/add_view',
+  'views/todo_view'
+], function ($, Backbone, indexTemplate, todoTemplate, Todo, Todos, AddView, TodoView) {
   return Backbone.View.extend({
-    events: {
-      'click #addButton': 'onAddButtonClick',
-      'keydown #input': 'onKeyDown'
-    },
-
     initialize: function () {
-      this.todoCollection = new TodoCollection();
+      this.addView = new AddView();
+      this.todoView = new TodoView();
+      this.listenTo(this.addView, 'addTodo', this.renderTodo);
     },
 
     el: this.$('#todo-app'),
@@ -23,34 +22,12 @@ define([
 
       this.$el.empty();
       this.$el.append(compiledTemplate);
+      this.addView.setElement(this.$('#todoAdd')).render();
       return this;
     },
 
-    onAddButtonClick: function () {
-      var input = this.$('#input');
-
-      var newItem = input.val();
-
-      this.addItems(newItem);
-      input.val('');
-    },
-
-    addItems: function (item) {
-      var newItem;
-
-      if (_.isEmpty(_.trim(item))) {
-        return;
-      }
-      newItem = {name: item, done: false};
-      this.todoCollection.add(newItem);
-    },
-
-    onKeyDown: function (e) {
-      if (e.which !== KEY_ENTER_CODE) {
-        return;
-      }
-      e.preventDefault();
-      this.onAddButtonClick();
+    renderTodo: function () {
+      this.todoView.setElement(this.$('#todoList')).render();
     }
   });
 });

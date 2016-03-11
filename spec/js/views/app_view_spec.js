@@ -18,7 +18,7 @@ define([
       subject().render();
     });
     it('our todoList should be empty at first render', function () {
-      expect(subject().todoCollection.length).toBe(CONSTANT_ZERO);
+      expect(subject().todos.length).toBe(CONSTANT_ZERO);
     });
   });
 
@@ -28,18 +28,18 @@ define([
     });
 
     it('should add it', function () {
-      subject().addItems('asfsa');
-      expect(subject().todoCollection.length).not.toBe(CONSTANT_ZERO);
+      subject().addTodo('asfsa');
+      expect(subject().todos.length).not.toBe(CONSTANT_ZERO);
     });
 
     it("for empty todo it shouldn't add it", function () {
-      subject().addItems('');
-      expect(subject().todoCollection.length).toBe(CONSTANT_ZERO);
+      subject().addTodo('');
+      expect(subject().todos.length).toBe(CONSTANT_ZERO);
     });
 
     it("for todo with full of white spaces, shouldn't add it", function () {
-      subject().addItems('   ');
-      expect(subject().todoCollection.length).toBe(CONSTANT_ZERO);
+      subject().addTodo('   ');
+      expect(subject().todos.length).toBe(CONSTANT_ZERO);
     });
   });
 });
