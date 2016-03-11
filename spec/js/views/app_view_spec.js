@@ -28,17 +28,17 @@ define([
     });
 
     it('should add it', function () {
-      subject().addItems('asfsa');
+      subject().addTodo('asfsa');
       expect(subject().todos.length).not.toBe(CONSTANT_ZERO);
     });
 
     it("for empty todo it shouldn't add it", function () {
-      subject().addItems('');
+      subject().addTodo('');
       expect(subject().todos.length).toBe(CONSTANT_ZERO);
     });
 
     it("for todo with full of white spaces, shouldn't add it", function () {
-      subject().addItems('   ');
+      subject().addTodo('   ');
       expect(subject().todos.length).toBe(CONSTANT_ZERO);
     });
   });
