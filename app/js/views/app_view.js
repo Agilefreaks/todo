@@ -5,8 +5,9 @@ define([
   'backbone',
   'text!templates/app_view.ejs',
   'text!templates/todo_view.ejs',
-  'collections/todo'
-], function ($, Backbone, indexTemplate, todoTemplate, Todo) {
+  'models/todo',
+  'collections/todos'
+], function ($, Backbone, indexTemplate, todoTemplate, Todo, Todos) {
   return Backbone.View.extend({
     events: {
       'click #addButton': 'onAddButtonClick',
@@ -14,7 +15,7 @@ define([
     },
 
     initialize: function () {
-      this.todo = new Todo();
+      this.todos = new Todos();
     },
 
     el: this.$('#todo-app'),
@@ -27,11 +28,11 @@ define([
       return this;
     },
 
-    renderTodo: function (el) {
+    renderTodos: function (el) {
       var compiledTemplateTodo;
 
       el.empty();
-      this.todo.each(function (modelTodo) {
+      this.todos.each(function (modelTodo) {
         compiledTemplateTodo = ejs.render(todoTemplate, {view: this, model: this.model, modelName: modelTodo.get('name')}, {});
         el.append(compiledTemplateTodo);
       });
@@ -40,21 +41,20 @@ define([
     onAddButtonClick: function () {
       var input = this.$('#input');
 
-      var newItem = input.val();
-
-      this.addItems(newItem);
+      this.addTodo(input.val());
       input.val('');
     },
 
-    addItems: function (item) {
-      var newItem;
+    addTodo: function (input) {
+      var newTodo = new Todo();
 
-      if (_.isEmpty(_.trim(item))) {
+      if (_.isEmpty(_.trim(input))) {
         return;
       }
-      newItem = {name: item, done: false};
-      this.todo.add(newItem);
-      this.renderTodo(this.$('#todoList'));
+      newTodo.set('name', input);
+      newTodo.set('done', false);
+      this.todos.push(newTodo);
+      this.renderTodos(this.$('#todoList'));
     },
 
     onKeyDown: function (e) {
