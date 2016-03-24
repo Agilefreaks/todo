@@ -1,21 +1,36 @@
 define([
   'jquery',
   'backbone',
-  'text!templates/app_view.ejs'
-], function ($, Backbone, indexTemplate) {
+  'text!templates/app_view.ejs',
+  'model/model',
+  'collection/collection'
+], function ($, Backbone, indexTemplate, model, collection){
   return Backbone.View.extend({
     el: this.$('#todo-app'),
 
-    currentDate: function () {
-      return new Date();
+    events:{
+      "click #button" : "createOnClick",
     },
 
-    render: function () {
-      var compiledTemplate = ejs.render(indexTemplate, {view: this, model: this.model}, {});
+    initialize:function(){
+      this.collection= new collection();
+    },
 
+    createOnClick:function(){
+      var value;
+      value=$('input').val();
+         if(value!=''){
+           this.collection.add(new model());    
+           // this.$('input').val('');    
+        }
+        
+     },  
+
+    render: function () {
+      var compiledTemplate = ejs.render(indexTemplate,{View:this ,model:this.model},{});  
       this.$el.empty();
       this.$el.append(compiledTemplate);
       return this;
-    }
+    },
   });
 });

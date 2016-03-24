@@ -1,32 +1,62 @@
 define([
   'views/app_view',
+  'collection/collection',
   'ejs'
-], function (Index) {
+], function (Index,collection) {
   var instance, subject;
 
-  beforeEach(function () {
-    instance = new Index({el: $('body')});
-    subject = function () {
-      return instance;
-    };
+  describe('I have an instance', function(){
+beforeEach(function () {
+    instance = new Index({collection: collection,el: $('body')});
   });
 
-  describe('render', function () {
-    it('will get rendered', function () {
-      subject().render();
-      expect(subject().$el.text()).toEqual(jasmine.stringMatching(/The current date is:/));
-    });
-  });
-
-  describe('currentDate', function () {
-    beforeEach(function () {
+  describe('render ',function(){
+    beforeEach(function(){
       subject = function () {
-        return instance.currentDate();
-      };
+       instance.render();
+    }
+     });
+    it('will get rendered',function(){
+      subject();
+      expect(instance.$('input').length).toEqual(1);
     });
 
-    it('returns a date', function () {
-      expect(subject() instanceof Date).toBe(true);
+    it('will get rendered',function(){
+      subject();
+      expect(instance.$('button').length).toEqual(1);
+    });
+ });
+
+    describe('checks the click button', function(){
+      beforeEach(function(){
+         instance.render();
+         subject=function(){
+           instance.$('button').click();
+         }
+      });
+
+      describe('input has no value', function(){
+         beforeEach(function(){
+           instance.$('input').val('');
+          });
+   
+       it('will be empty', function(){
+        subject();
+         expect(instance.collection.length).toBe(0);
+        })
+      });
+
+      describe('input has value', function(){
+         beforeEach(function(){
+           instance.$('input').val('a');
+        });
+
+        it('add items on click', function(){            
+         subject();
+         expect(instance.collection.length).toBe(1);
+      });
+      });
     });
   });
 });
+  
