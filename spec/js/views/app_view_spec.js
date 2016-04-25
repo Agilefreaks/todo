@@ -3,6 +3,8 @@ define([
   'ejs'
 ], function (Index) {
   var instance, subject;
+  var Zero = 0;
+  var One = 1;
 
   beforeEach(function () {
     instance = new Index({el: $('body')});
@@ -12,21 +14,45 @@ define([
   });
 
   describe('render', function () {
-    it('will get rendered', function () {
+    it('form will get rendered', function () {
       subject().render();
-      expect(subject().$el.text()).toEqual(jasmine.stringMatching(/The current date is:/));
+
+      expect(subject().$el.find('form#add_form').length).not.toEqual(Zero);
     });
   });
 
-  describe('currentDate', function () {
+  describe('add', function () {
     beforeEach(function () {
+      instance.render();
       subject = function () {
-        return instance.currentDate();
+        return instance.add(new Event());
       };
     });
 
-    it('returns a date', function () {
-      expect(subject() instanceof Date).toBe(true);
+    it('expect to: return nothing if input is empty', function () {
+      $('input[name="name"]').val('');
+
+      expect(subject().length).toEqual(Zero);
+    });
+
+    it('expect to: add model', function () {
+      $('input[name="name"]').val('add_value');
+
+      expect(subject().length).toEqual(One);
+    });
+
+    it('expect to: add model', function () {
+      $('input[name="name"]').val('test_name');
+
+      expect(subject().first().get('name')).toEqual('test_name');
+    });
+
+    it('expected to: clear the input after submit', function () {
+      $('input[name="name"]').val('test_name');
+
+      subject();
+
+      expect($('input[name="name"]').val().length).toEqual(Zero);
     });
   });
 });
