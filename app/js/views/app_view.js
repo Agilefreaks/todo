@@ -8,20 +8,25 @@ define([
   return Backbone.View.extend({
     el: this.$('#todo-app'),
 
+    initialize: function() {
+      this.collection = new Todos();
+    },
+
     events: {
       'submit #add_form': 'Add'
     },
 
-    Add: function (e) {
+    add: function (e) {
       e.preventDefault();
       var input = $('input[name="name"]').val();
-      var inp = "asd";
       if(input) {
         var todo = new Todo({name: input});
-        Todos.add(todo);
+        this.collection.add(todo);
       }
 
-      return Todos;
+      //console.log(this.collection);
+
+      return this.collection;
     },
 
     currentDate: function () {

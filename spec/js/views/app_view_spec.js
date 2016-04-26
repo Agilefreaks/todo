@@ -1,9 +1,8 @@
 define([
   'views/app_view',
-  'ejs',
-  'backbone'
+  'ejs'
 ], function (Index) {
-  var instance, subject, Backbone;
+  var instance, subject;
 
   beforeEach(function () {
     instance = new Index({el: $('body')});
@@ -31,32 +30,35 @@ define([
     });
   });
 
-  describe('Add', function () {
+  describe('add', function () {
+
+    var equalToZero = 0;
+    var equalToOne = 1;
+
     beforeEach(function () {
       instance.render();
-
       subject = function () {
-        return instance.Add(new Event());
+        return instance.add(new Event());
       };
     });
 
-
     it('expect to: return nothing if input is empty', function () {
-      expect(subject().length).toEqual(0);
+      $('input[name="name"]').val('');
+
+      expect(subject().length).toEqual(equalToZero);
     });
 
     it('expect to: add model', function () {
-      $('input[name="name"]').val("test_name");
+      $('input[name="name"]').val('add_value');
 
-      expect(subject().length).toEqual(1);
+      expect(subject().length).toEqual(equalToOne);
     });
 
     it('expect to: add model', function () {
-       var name = subject().at(0).get('name');
+      $('input[name="name"]').val('test_name');
 
-      expect(name).toEqual("test_name");
+      expect(subject().first().get('name')).toEqual('test_name');
     });
-
 
   });
 });
