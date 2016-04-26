@@ -7,6 +7,5 @@ define([
       Router.initialize();
       Backbone.history.start();
     };
-
   };
 });

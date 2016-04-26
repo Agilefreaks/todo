@@ -1,2 +1,2 @@
-spec\coverage
-spec\results
+spec/coverage
+spec/results
