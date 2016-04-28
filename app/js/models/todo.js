@@ -4,7 +4,8 @@ define([
   return Backbone.Model.extend({
     defaults: {
       name: '',
-      done: 0
+      done: false,
+      removed: false
     }
   });
 });
