@@ -5,7 +5,6 @@ define([
 ], function (ItemView, TodoModel) {
   var instance, subject;
   var Zero = 0;
-  var One = 1;
 
   beforeEach(function () {
     instance = new ItemView({model: new TodoModel({name: 'test', done: false})});
