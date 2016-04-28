@@ -10,7 +10,7 @@ define([
     index: function () {
       var appView = new AppView();
 
-      appView.render();
+      $('body').append(appView.render().$el);
     }
   },
     {
