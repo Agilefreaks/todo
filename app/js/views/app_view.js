@@ -2,43 +2,22 @@ define([
   'jquery',
   'backbone',
   'text!templates/app_view.ejs',
-  'models/todo',
-  'collections/todo'
-], function ($, Backbone, indexTemplate, Todo, Todos) {
+  'views/todo_views'
+], function ($, Backbone, indexTemplate, TodoViews) {
   return Backbone.View.extend({
 
-    events: {
-      'submit #add_form': 'add'
-    },
-
     initialize: function () {
-      this.collection = new Todos();
-    },
-
-    el: this.$('#todo-app'),
-
-    add: function (e) {
-      var todo,
-        input = $('input[name="name"]');
-
-      e.preventDefault();
-
-      if (!input.val()) {
-        return this.collection;
-      }
-
-      todo = new Todo({name: input.val()});
-      this.collection.add(todo);
-      input.val('');
-
-      return this.collection;
+      this.todos = new TodoViews();
     },
 
     render: function () {
-      var compiledTemplate = ejs.render(indexTemplate, {view: this, model: this.model}, {});
+      var todos = this.todos;
 
-      this.$el.empty();
-      this.$el.append(compiledTemplate);
+      var compiledTemplate = ejs.render(indexTemplate, {}, {});
+
+      this.$el.html(compiledTemplate);
+      this.$el.append(todos.render().$el);
+
       return this;
     }
   });
