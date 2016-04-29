@@ -21,12 +21,23 @@ define([
     it('has a index route', function () {
       expect(subject()['(?:params)']).toEqual('index');
     });
+
+    it('has a all todos route', function () {
+      expect(subject()['all']).toEqual('index');
+    });
+
+    it('has a done todos route', function () {
+      expect(subject()['done']).toEqual('index');
+    });
+
+    it('has a not done todos route', function () {
+      expect(subject()['notdone']).toEqual('index');
+    });
   });
 
   describe('navigate to empty route', function () {
     beforeEach(function () {
       Backbone.history.start({silent: true, pushState: true});
-
       subject = function () {
         instance.navigate('', true);
       };

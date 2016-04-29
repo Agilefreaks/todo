@@ -1,18 +1,23 @@
 define([
-  'jquery',
   'backbone',
-  'collections/todo',
   'views/add_view',
-  'views/list_todos_view'
-], function ($, Backbone, Todos, AddView, ListTodosView) {
+  'views/list_todos_view',
+  'views/filters_view',
+  'services/todo_provider'
+], function (Backbone, AddView, ListTodosView, FiltersView, ToDoProvider) {
   return Backbone.View.extend({
 
     initialize: function () {
-      this.collection = new Todos();
+      this.populateData();
       this.subViews = [
         new AddView({collection: this.collection}),
+        new FiltersView(),
         new ListTodosView({collection: this.collection})
       ];
+    },
+
+    populateData: function () {
+      this.collection = ToDoProvider.instance().getAllToDos();
     },
 
     render: function () {
