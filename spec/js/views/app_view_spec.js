@@ -33,6 +33,5 @@ define([
 
       expect($.contains(instance.el, instance.todos.el)).toBe(true);
     });
-
   });
 });

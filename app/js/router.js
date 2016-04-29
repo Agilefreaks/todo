@@ -4,13 +4,21 @@ define([
 ], function (Backbone, AppView) {
   var Router = Backbone.Router.extend({
     routes: {
-      '(?:params)': 'index'
+      '(?:params)': 'index',
+      'all': 'index',
+      'done': 'index',
+      'notdone': 'index'
     },
 
     index: function () {
       var appView = new AppView();
 
-      $('body').append(appView.render().$el);
+      this.renderPage(appView);
+    },
+
+    renderPage: function (page) {
+      $('body').empty();
+      $('body').append(page.render().$el);
     }
   },
     {

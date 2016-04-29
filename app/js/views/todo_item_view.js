@@ -13,6 +13,12 @@ define([
     tagName: 'li',
     className: 'row item',
 
+    initialize: function () {
+      if (this.model.get('removed') === true) {
+        this.$el.addClass('removed');
+      }
+    },
+
     checkTodo: function () {
       var done = this.model.get('done');
 
@@ -35,7 +41,15 @@ define([
     render: function () {
       var compiledTemplate = ejs.render(itemTemplate, {view: this, name: this.model.get('name')}, {});
 
+      if (this.model.get('removed')) { this.$el.html('This todo was removed'); return this; }
+
       this.$el.append(compiledTemplate);
+
+      if (this.model.get('done') === true) {
+        $(this.$el.find('.checkbox')).prop('checked', true);
+        this.$el.addClass('checked');
+      }
+
       return this;
     }
   });
