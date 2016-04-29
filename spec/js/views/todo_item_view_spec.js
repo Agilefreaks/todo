@@ -5,10 +5,9 @@ define([
 ], function (ItemView, TodoModel) {
   var instance, subject;
   var Zero = 0;
-  var One = 1;
 
   beforeEach(function () {
-    instance = new ItemView({model: new TodoModel({name: 'test', done: 0})});
+    instance = new ItemView({model: new TodoModel({name: 'test', done: false})});
     subject = function () {
       return instance;
     };
@@ -42,7 +41,22 @@ define([
     it('expect to: todo be mark as done', function () {
       subject();
 
-      expect(instance.model.get('done')).toEqual(One);
+      expect(instance.model.get('done')).toBeTruthy();
+    });
+  });
+
+  describe('removeTodo', function () {
+    beforeEach(function () {
+      instance.render();
+      subject = function () {
+        return instance.removeTodo();
+      };
+    });
+
+    it('expect to: todo be mark as done', function () {
+      subject();
+
+      expect(instance.model.get('removed')).toBeTruthy();
     });
   });
 });
