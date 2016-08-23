@@ -1,2 +1,3 @@
-spec\coverage
-spec\results
+node_modules/*
+spec/coverage/*
+spec/results/*
