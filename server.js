@@ -1,13 +1,19 @@
 var connect = require('connect'),
+  serveStatic = require('serve-static'),
   http = require('http'),
   app;
 var port = process.env.PORT || 8080;
 
+var serveApp = serveStatic('app');
+var serveRequire = serveStatic('node_modules/requirejs/');
+var serveTemplates = serveStatic('app/js/templates');
+var serveNodeModules = serveStatic('node_modules');
+
 app = connect()
-  .use(connect.static('app'))
-  .use('/js/lib/', connect.static('node_modules/requirejs/'))
-  .use('/js/templates/', connect.static('app/js/templates/'))
-  .use('/node_modules', connect.static('node_modules'));
+  .use(serveApp)
+  .use('/js/lib/', serveRequire)
+  .use('/js/templates/', serveTemplates)
+  .use('/node_modules', serveNodeModules);
 
 http.createServer(app).listen(port, function () {
   console.log('Running on http://localhost:' + port);   // eslint-disable-line no-console
