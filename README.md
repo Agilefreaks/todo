@@ -43,10 +43,10 @@ Don't work on this out of the office, you can work on other related projects but
 
  - install npm
  - run `npm install`
- - navigate to the spec folder
- - run ``karma start karma.conf.js``
-
+ - run `karma start karma.conf.js`
+ - run `node_modules\.bin\karma start spec\karma.conf.js`
+ 
 # Running linting
 
- - `node_modules/.bin/eslint .`
+ - `node_modules\.bin\eslint .`
 
