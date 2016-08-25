@@ -11,22 +11,17 @@ define([
     };
   });
 
-  describe('render', function () {
-    it('will get rendered', function () {
+  describe('Text input', function () {
+    it('will be defined', function () {
       subject().render();
-      expect(subject().$el.text()).toEqual(jasmine.stringMatching(/The current date is:/));
+      expect(subject().$el.find('input#text')).toBeDefined();
     });
   });
 
-  describe('currentDate', function () {
-    beforeEach(function () {
-      subject = function () {
-        return instance.currentDate();
-      };
-    });
-
-    it('returns a date', function () {
-      expect(subject() instanceof Date).toBe(true);
+  describe('Button type', function () {
+    it('will be defined', function () {
+      subject().render();
+      expect(subject().$el.find('button#button')).toBeDefined();
     });
   });
 });

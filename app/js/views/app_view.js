@@ -6,8 +6,17 @@ define([
   return Backbone.View.extend({
     el: this.$('#todo-app'),
 
-    currentDate: function () {
-      return new Date();
+    events:{
+      'keypress .todo-new-input' : 'createNewOnEnter',
+      'click .todo-new-button' : 'createNewOnClick'
+    },
+
+    createNewOnEnter: function (e) {
+      throw new Error('Not implemented');
+    },
+
+    createNewOnClick: function (e) {
+      throw new Error('Not implemented');
     },
 
     render: function () {
