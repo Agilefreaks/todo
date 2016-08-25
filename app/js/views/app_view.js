@@ -6,21 +6,22 @@ define([
   'models/todo'
 ], function ($, Backbone, indexTemplate, TodoCollection, ToDo) {
   return Backbone.View.extend({
-    el: this.$('#todo-app'),
-
-    events:{
-      'keypress #todo-new-input' : 'createNewOnEnter',
-      'click #todo-new-button' : 'createNewOnClick'
+    events: {
+      'keypress #todo-new-input': 'createNewOnEnter',
+      'click #todo-new-button': 'createNewOnClick'
     },
 
+    ENTER_KEY: 13,
+
+    el: this.$('#todo-app'),
 
     createNewOnEnter: function (e) {
-      if(e.which !== 13 || !$('#todo-new-input').val().trim()) { return;}
+      if (e.which !== this.ENTER_KEY || !$('#todo-new-input').val().trim()) { return; }
       this.addOne();
     },
 
-    createNewOnClick: function (e) {
-      if(!$('#todo-new-input').val().trim()) { return;}
+    createNewOnClick: function () {
+      if (!$('#todo-new-input').val().trim()) { return; }
       this.addOne();
     },
 

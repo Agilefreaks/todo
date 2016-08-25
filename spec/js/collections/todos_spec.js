@@ -17,18 +17,21 @@ define([
     });
 
     it('will be empty', function () {
-      expect(subject().length).toEqual(0);
+      var length = 0;
+
+      expect(subject().length).toEqual(length);
     });
   });
 
   describe('Collection ', function () {
-
     beforeEach(function () {
-      subject().add(new ToDo())
+      subject().add(new ToDo());
     });
 
     it('will have one element added', function () {
-      expect(subject().length).toEqual(1);
+      var length = 1;
+
+      expect(subject().length).toEqual(length);
     });
   });
 });

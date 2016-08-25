@@ -18,8 +18,9 @@ define([
 
   describe('ToDo Item', function () {
     var secondSubject, secondInstance;
+
     beforeEach(function () {
-      secondInstance = new ToDo({title:'Drink beer', completed:false});
+      secondInstance = new ToDo({title: 'Drink beer', completed: false});
       secondSubject = function () {
         return secondInstance;
       };
