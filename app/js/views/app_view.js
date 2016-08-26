@@ -10,8 +10,6 @@ define([
       submit: 'createNew'
     },
 
-    ENTER_KEY: 13,
-
     el: this.$('#todo-app'),
 
     createNew: function (e) {
