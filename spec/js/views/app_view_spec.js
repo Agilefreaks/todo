@@ -29,10 +29,20 @@ define([
 
   describe('ToDo Item', function () {
     var expectedLength = 1;
+    var itemToBeAdded = new ToDo({title: 'Test', completed: false});
+
+    it('will be found on view', function () {
+      subject().updateView(itemToBeAdded);
+      expect(subject().$el.find('.todo-view')).toBeDefined();
+    });
 
     it('will be added to collection', function () {
-      subject().addOne(new ToDo('Test'));
+      subject().addOne(itemToBeAdded);
       expect(ToDoCollection.length).toBe(expectedLength);
+    });
+
+    it('will be created', function () {
+      expect(subject().createItem('Test')).toBeDefined();
     });
   });
 });

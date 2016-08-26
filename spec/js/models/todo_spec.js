@@ -11,8 +11,14 @@ define([
   });
 
   describe('Empty ToDo Item', function () {
-    it('will have default values', function () {
-      expect(subject).toMatch('');
+    var expectedResult = new ToDo();
+
+    it('will have default title', function () {
+      expect(subject.title).toEqual(expectedResult.title);
+    });
+
+    it('will have default completed status', function () {
+      expect(subject.completed).toBeFalsy();
     });
   });
 });

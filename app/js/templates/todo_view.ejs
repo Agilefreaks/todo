@@ -1,0 +1,5 @@
+<div class="todo-view">
+  <input class="toggle" type="checkbox" <%= model.get('completed')  ? 'checked' : '' %>>
+  <label><%- model.get('title') %></label>
+  <button class="delete">Delete</button>
+</div>
