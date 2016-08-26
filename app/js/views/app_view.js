@@ -4,32 +4,28 @@ define([
   'text!templates/app_view.ejs',
   'collections/todos',
   'models/todo'
-], function ($, Backbone, indexTemplate, TodoCollection, ToDo) {
+], function ($, Backbone, indexTemplate, ToDoCollection, ToDo) {
   return Backbone.View.extend({
     events: {
-      'keypress #todo-new-input': 'createNewOnEnter',
-      'click #todo-new-button': 'createNewOnClick'
+      submit: 'createNew'
     },
 
     ENTER_KEY: 13,
 
     el: this.$('#todo-app'),
 
-    createNewOnEnter: function (e) {
-      if (e.which !== this.ENTER_KEY || !$('#todo-new-input').val().trim()) { return; }
-      this.addOne();
+    createNew: function (e) {
+      var inputValue = this.input.val().trim();
+
+      e.preventDefault();
+
+      if (!inputValue) { return; }
+      this.addOne(new ToDo(inputValue));
+      this.input.val('');
     },
 
-    createNewOnClick: function () {
-      if (!$('#todo-new-input').val().trim()) { return; }
-      this.addOne();
-    },
-
-    addOne: function () {
-      TodoCollection.add(new ToDo({
-        title: $('#todo-new-input').val().trim(),
-        completed: false
-      }));
+    addOne: function (ToDoItem) {
+      ToDoCollection.add(ToDoItem);
     },
 
     render: function () {
@@ -37,6 +33,7 @@ define([
 
       this.$el.empty();
       this.$el.append(compiledTemplate);
+      this.input = this.$el.find('#todo-new-input');
       return this;
     }
   });

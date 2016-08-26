@@ -2,9 +2,9 @@ define([
   'backbone',
   'models/todo'
 ], function (Backbone, ToDo) {
-  var TodoCollection = Backbone.Collection.extend({
+  var ToDoCollection = Backbone.Collection.extend({
     model: ToDo
   });
 
-  return new TodoCollection();
+  return new ToDoCollection();
 });
