@@ -25,6 +25,7 @@
     "karma-html-reporter": "0.2.7",
     "karma-jasmine": "1.0.2",
     "karma-phantomjs-launcher": "1.0.1",
+    "karma-firefox-launcher": "1.0.0",
     "karma-requirejs": "1.0.0",
     "karma-sinon": "1.0.5",
     "karma-teamcity-reporter": "1.0.0",

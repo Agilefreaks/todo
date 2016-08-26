@@ -3,8 +3,9 @@ define([
   'backbone',
   'text!templates/app_view.ejs',
   'collections/todos',
-  'models/todo'
-], function ($, Backbone, indexTemplate, ToDoCollection, ToDo) {
+  'models/todo',
+  'views/todo_view'
+], function ($, Backbone, indexTemplate, ToDoCollection, ToDo, ToDoView) {
   return Backbone.View.extend({
     events: {
       submit: 'createNew'
@@ -18,10 +19,13 @@ define([
 
     createNew: function (e) {
       var inputValue = this.input.val().trim();
+      var ToDoItem = this.createItem(inputValue);
 
-      e.preventDefault();
       if (!inputValue) { return; }
-      this.addOne(inputValue);
+      e.preventDefault();
+      this.addOne(ToDoItem);
+      this.updateView(ToDoItem);
+
       this.input.val('');
     },
 
@@ -29,6 +33,21 @@ define([
       var toDoItem = new ToDo(inputValue);
 
       this.toDoCollection.add(toDoItem);
+    createItem: function (inputValue) {
+      return new ToDo({
+        title: inputValue,
+        completed: false
+      });
+    },
+
+    addOne: function (ToDoItem) {
+      ToDoCollection.add(ToDoItem);
+    },
+
+    updateView: function (ToDoItem) {
+      var view = new ToDoView({model: ToDoItem});
+
+      this.$el.append(view.render());
     },
 
     render: function () {
