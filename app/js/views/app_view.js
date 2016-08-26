@@ -15,12 +15,12 @@ define([
 
     createNew: function (e) {
       var inputValue = this.input.val().trim();
-      var ToDoItem = this.createItem(inputValue);
+      var toDoItem = this.createItem(inputValue);
 
       if (!inputValue) { return; }
       e.preventDefault();
-      this.addOne(ToDoItem);
-      this.updateView(ToDoItem);
+      this.addOne(toDoItem);
+      this.updateView(toDoItem);
 
       this.input.val('');
     },
@@ -32,12 +32,12 @@ define([
       });
     },
 
-    addOne: function (ToDoItem) {
-      ToDoCollection.add(ToDoItem);
+    addOne: function (toDoItem) {
+      ToDoCollection.add(toDoItem);
     },
 
-    updateView: function (ToDoItem) {
-      var view = new ToDoView({model: ToDoItem});
+    updateView: function (toDoItem) {
+      var view = new ToDoView({model: toDoItem});
 
       this.$el.append(view.render());
     },
