@@ -12,18 +12,23 @@ define([
 
     el: this.$('#todo-app'),
 
+    toDoCollection: new ToDoCollection(),
+
+    input: this.$('#todo-new-input'),
+
     createNew: function (e) {
       var inputValue = this.input.val().trim();
 
       e.preventDefault();
-
       if (!inputValue) { return; }
-      this.addOne(new ToDo(inputValue));
+      this.addOne(inputValue);
       this.input.val('');
     },
 
-    addOne: function (ToDoItem) {
-      ToDoCollection.add(ToDoItem);
+    addOne: function (inputValue) {
+      var toDoItem = new ToDo(inputValue);
+
+      this.toDoCollection.add(toDoItem);
     },
 
     render: function () {

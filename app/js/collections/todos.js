@@ -6,5 +6,5 @@ define([
     model: ToDo
   });
 
-  return new ToDoCollection();
+  return ToDoCollection;
 });
