@@ -2,18 +2,19 @@ define([
   'jquery',
   'backbone',
   'text!templates/app_view.ejs',
-  'collections/todos',
   'models/todo',
-  'views/todo_view'
-], function ($, Backbone, indexTemplate, ToDoCollection, ToDo, ToDoView) {
+  'views/todos_view'
+], function ($, Backbone, indexTemplate, ToDo, ToDosView) {
   return Backbone.View.extend({
     events: {
       submit: 'createNew'
     },
 
-    el: this.$('#todo-app'),
+    initialize: function () {
+      this.toDosView = new ToDosView();
+    },
 
-    toDoCollection: new ToDoCollection(),
+    el: this.$('#todo-app'),
 
     input: this.$('#todo-new-input'),
 
@@ -21,33 +22,18 @@ define([
       var inputValue = this.input.val().trim();
       var toDoItem = this.createItem(inputValue);
 
-      if (!inputValue) { return; }
       e.preventDefault();
-      this.addOne(toDoItem);
-      this.updateView(toDoItem);
+      if (!inputValue) { return; }
+      this.toDosView.addOne(toDoItem);
 
       this.input.val('');
     },
 
-    addOne: function (inputValue) {
-      var toDoItem = new ToDo(inputValue);
-
-      this.toDoCollection.add(toDoItem);
     createItem: function (inputValue) {
       return new ToDo({
         title: inputValue,
         completed: false
       });
-    },
-
-    addOne: function (toDoItem) {
-      ToDoCollection.add(toDoItem);
-    },
-
-    updateView: function (toDoItem) {
-      var view = new ToDoView({model: toDoItem});
-
-      this.$el.append(view.render());
     },
 
     render: function () {

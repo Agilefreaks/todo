@@ -48,7 +48,7 @@ define([
     it('will be added to collection', function () {
       var expectedLength = 1;
 
-      expect(subject().toDoCollection.length).toBe(expectedLength);
+      expect(subject().toDosView.toDoCollection.length).toBe(expectedLength);
     });
 
     it('input will be cleared', function () {
@@ -56,7 +56,7 @@ define([
     });
 
     afterEach(function () {
-      subject().toDoCollection.reset();
+      subject().toDosView.toDoCollection.reset();
     });
   });
 
@@ -68,7 +68,7 @@ define([
     it('will not be added to collection', function () {
       var expectedLength = 0;
 
-      expect(subject().toDoCollection.length).toBe(expectedLength);
+      expect(subject().toDosView.toDoCollection.length).toBe(expectedLength);
     });
   });
 
@@ -80,7 +80,7 @@ define([
     it('will not be added to collection', function () {
       var expectedLength = 0;
 
-      expect(subject().toDoCollection.length).toBe(expectedLength);
+      expect(subject().toDosView.toDoCollection.length).toBe(expectedLength);
     });
   });
 });
