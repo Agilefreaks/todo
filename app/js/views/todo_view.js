@@ -1,7 +1,7 @@
 define([
   'jquery',
   'backbone',
-  'text!templates/todo_view.ejs',
+  'text!templates/todo_view.ejs'
 ], function ($, Backbone, ToDoTemplate) {
   return Backbone.View.extend({
     events: {
