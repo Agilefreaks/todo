@@ -8,6 +8,8 @@ define([
       'click .toggle': 'toggleCompleteStatus'
     },
 
+    tagName: 'li',
+
     toggleCompleteStatus: function () {
       this.model.changeCompleted();
     },

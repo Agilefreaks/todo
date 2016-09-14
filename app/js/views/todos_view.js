@@ -7,11 +7,10 @@ define([
 ], function ($, Backbone, ToDoCollection, ToDo, ToDoView) {
   return Backbone.View.extend({
 
-    el: this.$('#todo-list'),
-    toDoCollection: new ToDoCollection(),
+    tagName: 'ul',
 
     addOne: function (toDoItem) {
-      this.toDoCollection.add(toDoItem);
+      this.model.add(toDoItem);
       this.updateView(toDoItem);
     },
 
