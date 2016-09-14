@@ -5,12 +5,15 @@ define([
     defaults: {
       title: '',
       completed: false
+<<<<<<< HEAD
     },
 
     changeCompleted: function () {
       this.save({
         completed: !this.get('completed')
       });
+=======
+>>>>>>> origin/17-display-items
     }
   });
 
