@@ -7,11 +7,7 @@ define([
   var instance, subject;
 
   beforeEach(function () {
-<<<<<<< HEAD
     instance = new Index({el: $('body'), ToDoCollection: new ToDoCollection()});
-=======
-    instance = new Index({el: $('body'), ToDoCollection: ToDoCollection});
->>>>>>> origin/17-display-items
     subject = function () {
       return instance;
     };
@@ -31,7 +27,6 @@ define([
     });
   });
 
-<<<<<<< HEAD
   function setUp(item) {
     var event = {
       type: 'click',
@@ -86,24 +81,6 @@ define([
       var expectedLength = 0;
 
       expect(subject().toDosView.toDoCollection.length).toBe(expectedLength);
-=======
-  describe('ToDo Item', function () {
-    var expectedLength = 1;
-    var itemToBeAdded = new ToDo({title: 'Test', completed: false});
-
-    it('will be found on view', function () {
-      subject().updateView(itemToBeAdded);
-      expect(subject().$el.find('.todo-view')).toBeDefined();
-    });
-
-    it('will be added to collection', function () {
-      subject().addOne(itemToBeAdded);
-      expect(ToDoCollection.length).toBe(expectedLength);
-    });
-
-    it('will be created', function () {
-      expect(subject().createItem('Test')).toBeDefined();
->>>>>>> origin/17-display-items
     });
   });
 });
