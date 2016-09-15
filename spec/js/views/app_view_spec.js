@@ -1,14 +1,19 @@
 define([
   'views/app_view',
+  'collections/todos',
   'ejs'
-], function (Index) {
+], function (Index, ToDoCollection) {
   var instance, subject;
 
   beforeEach(function () {
-    instance = new Index({el: $('body')});
+    instance = new Index({el: $('body'), collection: new ToDoCollection()});
     subject = function () {
       return instance;
     };
+  });
+
+  afterEach(function () {
+    subject().$el.empty();
   });
 
   describe('Add ToDo view object', function () {

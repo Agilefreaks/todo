@@ -11,6 +11,10 @@ define([
     };
   });
 
+  afterEach(function () {
+    subject().$el.empty();
+  });
+
   describe('Checkbox input', function () {
     it('will be defined', function () {
       subject().render();

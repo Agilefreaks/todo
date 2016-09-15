@@ -6,13 +6,11 @@ define([
   'views/todo_view'
 ], function ($, Backbone, ToDoCollection, ToDo, ToDoView) {
   return Backbone.View.extend({
+    initialize: function () {
+      this.listenTo(this.collection, 'add', this.updateView);
+    },
 
     tagName: 'ul',
-
-    addOne: function (toDoItem) {
-      this.model.add(toDoItem);
-      this.updateView(toDoItem);
-    },
 
     updateView: function (toDoItem) {
       var view = new ToDoView({model: toDoItem, $el: this.$el});

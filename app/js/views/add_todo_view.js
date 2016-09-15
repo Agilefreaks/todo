@@ -2,25 +2,24 @@ define([
   'jquery',
   'backbone',
   'text!templates/app_view.ejs',
-  'models/todo'
+  'models/todo',
+  'ejs'
 ], function ($, Backbone, indexTemplate, ToDo) {
   return Backbone.View.extend({
     events: {
       submit: 'createNew'
     },
 
-    input: this.$('#todo-new-input'),
-
     createNew: function (e) {
       var inputValue = this.input.val().trim();
       var toDoItem = this.createItem(inputValue);
 
       e.preventDefault();
-      if (!inputValue) { return; }
+      if (inputValue) {
+        this.collection.add(toDoItem);
 
-      this.model.addOne(toDoItem);
-
-      this.input.val('');
+        this.input.val('');
+      }
     },
 
     createItem: function (inputValue) {

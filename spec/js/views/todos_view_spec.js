@@ -7,10 +7,14 @@ define([
   var instance, subject;
 
   beforeEach(function () {
-    instance = new ToDosView({model: new ToDoCollection(), el: $('body')});
+    instance = new ToDosView({collection: new ToDoCollection(), el: $('body')});
     subject = function () {
       return instance;
     };
+  });
+
+  beforeEach(function () {
+    subject().$el.empty();
   });
 
   describe('Item', function () {
@@ -20,17 +24,7 @@ define([
         completed: false
       });
 
-      subject().addOne(toDoItem);
-    });
-
-    it('will be added to collection', function () {
-      var expectedLength = 1;
-      var list = _.map(subject().model, function (val) {
-        return {id: val};
-      });
-      var collection = new ToDoCollection(list);
-
-      expect(collection.length).toBe(expectedLength);
+      subject().collection.add(toDoItem);
     });
 
     it('will be displayed', function () {

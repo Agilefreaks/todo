@@ -8,9 +8,7 @@ define([
     },
 
     changeCompleted: function () {
-      this.save({
-        completed: !this.get('completed')
-      });
+      this.completed = !this.get('completed');
     }
   });
 

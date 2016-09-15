@@ -8,9 +8,9 @@ define([
   var addToDoView;
 
   beforeEach(function () {
-    var toDosView = new ToDosView({model: new ToDoCollection(), el: $('body')});
+    var collection = new ToDoCollection();
 
-    addToDoView = new AddToDoView({model: toDosView, el: $('body')});
+    addToDoView = new AddToDoView({collection: collection, el: $('body')});
   });
 
   function setUp(item) {
@@ -24,16 +24,17 @@ define([
     addToDoView.createNew(event);
   }
 
+  afterEach(function () {
+    addToDoView.$el.empty();
+  });
+
   describe('Empty Item', function () {
     beforeEach(function () {
       setUp('');
     });
 
     it('will not be added to view', function () {
-      var expectedValue = 0;
-
-      // either returns undefined or 0, why?
-      expect(addToDoView.$('#todo-view').val()).toBeDefined(expectedValue);
+      expect(addToDoView.$('#todo-view').val()).toBeUndefined();
     });
   });
 
@@ -43,7 +44,7 @@ define([
     });
 
     it('will not be added to view', function () {
-      expect(addToDoView.$('#todo-view').val()).not.toMatch('  ');
+      expect(addToDoView.$('#todo-view').val()).toBeUndefined();
     });
   });
 });

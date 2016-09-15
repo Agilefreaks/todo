@@ -8,8 +8,8 @@ define([
 ], function ($, Backbone, ToDo, ToDoCollection, AddToDoView, ToDosView) {
   return Backbone.View.extend({
     initialize: function () {
-      this.toDosView = new ToDosView({model: new ToDoCollection(), el: this.$('#todo-list')});
-      this.addToDoView = new AddToDoView({model: this.toDosView, el: this.$('#todo-input')});
+      this.toDosView = new ToDosView({collection: this.collection, el: this.$('#todo-list')});
+      this.addToDoView = new AddToDoView({collection: this.collection, el: this.$('#todo-input')});
     },
 
     el: this.$('#todo-app'),
