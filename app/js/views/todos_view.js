@@ -11,9 +11,10 @@ define([
     },
 
     tagName: 'ul',
+    id: 'todo-list',
 
     updateView: function (toDoItem) {
-      var view = new ToDoView({model: toDoItem, $el: this.$el});
+      var view = new ToDoView({model: toDoItem});
 
       this.$el.append(view.render().el);
     },

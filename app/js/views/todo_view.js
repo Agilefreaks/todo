@@ -9,6 +9,7 @@ define([
     },
 
     tagName: 'li',
+    className: 'todo-view',
 
     toggleCompleteStatus: function () {
       this.model.changeCompleted();

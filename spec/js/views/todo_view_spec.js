@@ -5,7 +5,7 @@ define([
   var instance, subject;
 
   beforeEach(function () {
-    instance = new Index({el: $('body'), model: new ToDo({title: 'Test', completed: false})});
+    instance = new Index({model: new ToDo({title: 'Test', completed: false})});
     subject = function () {
       return instance;
     };

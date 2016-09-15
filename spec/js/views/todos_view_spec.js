@@ -7,13 +7,13 @@ define([
   var instance, subject;
 
   beforeEach(function () {
-    instance = new ToDosView({collection: new ToDoCollection(), el: $('body')});
+    instance = new ToDosView({collection: new ToDoCollection()});
     subject = function () {
       return instance;
     };
   });
 
-  beforeEach(function () {
+  afterEach(function () {
     instance.$el.empty();
   });
 
@@ -36,7 +36,7 @@ define([
 
       subject();
 
-      expect(instance.$el.find('#todo-view').length).toEqual(expectedLength);
+      expect(instance.$('.todo-view').length).toEqual(expectedLength);
     });
   });
 });

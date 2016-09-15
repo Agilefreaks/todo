@@ -6,37 +6,48 @@ define([
   var instance, subject;
 
   beforeEach(function () {
-    instance = new Index({el: $('body'), collection: new ToDoCollection()});
+    instance = new Index({el: $('<div>'), collection: new ToDoCollection()});
     subject = function () {
       return instance;
     };
   });
 
   afterEach(function () {
-    //instance.$el.empty();
+    instance.$el.empty();
   });
 
-  describe('View object ', function () {
+  describe('Render', function () {
     beforeEach(function () {
       subject = function () {
-        return instance.addToDoView;
+        instance.render();
       };
     });
 
     it('to add new todos is defined', function () {
-      expect(subject()).toBeDefined();
-    });
-  });
+      subject();
 
-  describe('View object ', function () {
-    beforeEach(function () {
-      subject = function () {
-        return instance.toDosView;
-      };
+      expect($.contains(instance.el, instance.addToDoView.el)).toBeTruthy();
+    });
+
+    it('renders add todos view', function () {
+      var renderSpy = spyOn(instance.addToDoView, 'render').and.callThrough();
+
+      subject();
+
+      expect(renderSpy).toHaveBeenCalled();
     });
 
     it('that contains list is defined', function () {
-      expect(subject()).toBeDefined();
+      subject();
+      expect(instance.toDosView).toBeDefined();
+    });
+
+    it('renders todos list view', function () {
+      var renderSpy = spyOn(instance.toDosView, 'render').and.callThrough();
+
+      subject();
+
+      expect(renderSpy).toHaveBeenCalled();
     });
   });
 });

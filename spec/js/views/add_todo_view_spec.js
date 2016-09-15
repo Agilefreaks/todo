@@ -10,14 +10,10 @@ define([
   beforeEach(function () {
     var collection = new ToDoCollection();
 
-    instance = new AddToDoView({collection: collection, el: $('body')});
+    instance = new AddToDoView({collection: collection});
     subject = function () {
       return instance;
     };
-  });
-
-  afterEach(function () {
-    instance.$el.empty();
   });
 
   describe('Render', function () {
@@ -49,14 +45,14 @@ define([
       };
     });
 
-    it('empty text is not be added to view', function () {
+    it('empty text is not added to view', function () {
       var expectedLength = 0;
 
       subject('');
       expect(instance.$('#todo-view').length).toBe(expectedLength);
     });
 
-    it('only spaces is not be added to view', function () {
+    it('only spaces is not added to view', function () {
       var expectedLength = 0;
 
       subject('  ');

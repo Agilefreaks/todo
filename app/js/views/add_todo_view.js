@@ -1,7 +1,7 @@
 define([
   'jquery',
   'backbone',
-  'text!templates/app_view.ejs',
+  'text!templates/add_todo_view.ejs',
   'models/todo',
   'ejs'
 ], function ($, Backbone, indexTemplate, ToDo) {
@@ -9,6 +9,8 @@ define([
     events: {
       submit: 'createNew'
     },
+
+    id: 'todo-input',
 
     createNew: function (e) {
       var inputValue = this.input.val().trim();
