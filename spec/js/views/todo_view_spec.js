@@ -68,4 +68,21 @@ define([
       expect(instance.$('.title').hasClass('completed')).toBeTruthy();
     });
   });
+
+  describe('Deleting', function () {
+    beforeEach(function () {
+      subject = function () {
+        instance.render();
+        instance.deleteItem();
+      };
+    });
+
+    it('executes destruction of model and view', function () {
+      var spy = spyOn(instance, 'deleteItem').and.callThrough();
+
+      subject();
+
+      expect(spy).toHaveBeenCalled();
+    });
+  });
 });
