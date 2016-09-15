@@ -13,6 +13,11 @@ define([
 
     toggleCompleteStatus: function () {
       this.model.changeCompleted();
+      this.toggleVisibility();
+    },
+
+    toggleVisibility: function () {
+      this.model.get('completed') ? this.$('.title').addClass('completed') : this.$('.title').removeClass('completed');
     },
 
     render: function () {

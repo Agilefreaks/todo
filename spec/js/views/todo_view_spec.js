@@ -5,7 +5,7 @@ define([
   var instance, subject;
 
   beforeEach(function () {
-    instance = new Index({model: new ToDo({title: 'Test', completed: false})});
+    instance = new Index({model: new ToDo({title: 'Test', completed: false}), el: $('<div>')});
     subject = function () {
       return instance;
     };
@@ -16,10 +16,9 @@ define([
   });
 
   describe('Render', function () {
-    var expectedLength = 0;
+    var expectedLength = 1;
 
     beforeEach(function () {
-      expectedLength = 1;
       subject = function () {
         instance.render();
       };
@@ -38,6 +37,35 @@ define([
     it('creates delete button', function () {
       subject();
       expect(instance.$el.find('.delete').length).toBe(expectedLength);
+    });
+  });
+
+  describe('Check item', function () {
+    beforeEach(function () {
+      subject = function () {
+        instance.render();
+        instance.toggleCompleteStatus();
+      };
+    });
+
+    it('executes call of function', function () {
+      var spy = spyOn(instance, 'toggleCompleteStatus').and.callThrough();
+
+      subject();
+
+      expect(spy).toHaveBeenCalled();
+    });
+
+    it('model complete status is modified to true', function () {
+      subject();
+
+      expect(instance.model.get('completed')).toBeTruthy();
+    });
+
+    it('changes style of title', function () {
+      subject();
+
+      expect(instance.$('.title').hasClass('completed')).toBeTruthy();
     });
   });
 });
