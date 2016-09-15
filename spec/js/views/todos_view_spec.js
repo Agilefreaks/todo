@@ -14,21 +14,29 @@ define([
   });
 
   beforeEach(function () {
-    subject().$el.empty();
+    instance.$el.empty();
   });
 
-  describe('Item', function () {
+  describe('item is added to collection', function () {
+    var toDoItem;
+
     beforeEach(function () {
-      var toDoItem = new ToDo({
+      toDoItem = new ToDo({
         title: 'Test',
         completed: false
       });
 
-      subject().collection.add(toDoItem);
+      subject = function () {
+        instance.collection.add(toDoItem);
+      };
     });
 
-    it('will be displayed', function () {
-      expect(subject().$el.find('#todo-list')).toBeDefined();
+    it('appends a new list item to list', function () {
+      var expectedLength = 1;
+
+      subject();
+
+      expect(instance.$el.find('#todo-view').length).toEqual(expectedLength);
     });
   });
 });

@@ -5,46 +5,62 @@ define([
   'collections/todos',
   'ejs'
 ], function (AddToDoView, ToDosView, ToDo, ToDoCollection) {
-  var addToDoView;
+  var instance, subject;
 
   beforeEach(function () {
     var collection = new ToDoCollection();
 
-    addToDoView = new AddToDoView({collection: collection, el: $('body')});
-  });
-
-  function setUp(item) {
-    var event = {
-      type: 'click',
-      preventDefault: function () { }
+    instance = new AddToDoView({collection: collection, el: $('body')});
+    subject = function () {
+      return instance;
     };
-
-    addToDoView.render();
-    addToDoView.$('#todo-new-input').val(item);
-    addToDoView.createNew(event);
-  }
+  });
 
   afterEach(function () {
-    addToDoView.$el.empty();
+    instance.$el.empty();
   });
 
-  describe('Empty Item', function () {
+  describe('Render', function () {
     beforeEach(function () {
-      setUp('');
+      subject = function () {
+        instance.render();
+      };
     });
 
-    it('will not be added to view', function () {
-      expect(addToDoView.$('#todo-view').val()).toBeUndefined();
+    it('creates input form', function () {
+      var expectedLength = 1;
+
+      subject();
+      expect(instance.$('.input-form').length).toBe(expectedLength);
     });
   });
 
-  describe('Spaces Item', function () {
+  describe('Input with', function () {
     beforeEach(function () {
-      setUp('  ');
+      var event = {
+        type: 'click',
+        preventDefault: function () { }
+      };
+
+      subject = function (item) {
+        instance.render();
+        instance.$('#todo-new-input').val(item);
+        instance.createNew(event);
+      };
     });
 
-    it('will not be added to view', function () {
-      expect(addToDoView.$('#todo-view').val()).toBeUndefined();
+    it('empty text is not be added to view', function () {
+      var expectedLength = 0;
+
+      subject('');
+      expect(instance.$('#todo-view').length).toBe(expectedLength);
+    });
+
+    it('only spaces is not be added to view', function () {
+      var expectedLength = 0;
+
+      subject('  ');
+      expect(instance.$('#todo-view').length).toBe(expectedLength);
     });
   });
 });

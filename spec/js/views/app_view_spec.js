@@ -13,25 +13,30 @@ define([
   });
 
   afterEach(function () {
-    subject().$el.empty();
+    //instance.$el.empty();
   });
 
-  describe('Add ToDo view object', function () {
-    it('will be defined', function () {
-      expect(subject().addToDoView).toBeDefined();
+  describe('View object ', function () {
+    beforeEach(function () {
+      subject = function () {
+        return instance.addToDoView;
+      };
+    });
+
+    it('to add new todos is defined', function () {
+      expect(subject()).toBeDefined();
     });
   });
 
-  describe('ToDo view list', function () {
-    it('will be defined', function () {
-      expect(subject().toDosView).toBeDefined();
+  describe('View object ', function () {
+    beforeEach(function () {
+      subject = function () {
+        return instance.toDosView;
+      };
     });
-  });
 
-  describe('Render', function () {
-    it('will have created input form', function () {
-      subject().render();
-      expect(subject().$el.find('.input-form')).toBeDefined();
+    it('that contains list is defined', function () {
+      expect(subject()).toBeDefined();
     });
   });
 });

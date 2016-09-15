@@ -5,27 +5,39 @@ define([
   var instance, subject;
 
   beforeEach(function () {
-    instance = new Index({el: $('todo-list'), model: new ToDo({title: 'Test', completed: false})});
+    instance = new Index({el: $('body'), model: new ToDo({title: 'Test', completed: false})});
     subject = function () {
       return instance;
     };
   });
 
   afterEach(function () {
-    subject().$el.empty();
+    instance.$el.empty();
   });
 
-  describe('Checkbox input', function () {
-    it('will be defined', function () {
-      subject().render();
-      expect(subject().$('input#checkbox')).toBeDefined();
+  describe('Render', function () {
+    var expectedLength = 0;
+
+    beforeEach(function () {
+      expectedLength = 1;
+      subject = function () {
+        instance.render();
+      };
     });
-  });
 
-  describe('Label type', function () {
-    it('will be defined', function () {
-      subject().render();
-      expect(subject().$el.find('input#label')).toBeDefined();
+    it('creates checkbox input', function () {
+      subject();
+      expect(instance.$('.toggle').length).toBe(expectedLength);
+    });
+
+    it('creates title element', function () {
+      subject();
+      expect(instance.$el.find('.title').length).toBe(expectedLength);
+    });
+
+    it('creates delete button', function () {
+      subject();
+      expect(instance.$el.find('.delete').length).toBe(expectedLength);
     });
   });
 });
