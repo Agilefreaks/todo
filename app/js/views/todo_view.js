@@ -5,7 +5,8 @@ define([
 ], function ($, Backbone, ToDoTemplate) {
   return Backbone.View.extend({
     events: {
-      'click .toggle': 'toggleCompleteStatus'
+      'click .toggle': 'toggleCompleteStatus',
+      'click .delete': 'deleteItem'
     },
 
     tagName: 'li',
@@ -18,6 +19,11 @@ define([
 
     toggleVisibility: function () {
       this.model.get('completed') ? this.$('.title').addClass('completed') : this.$('.title').removeClass('completed');
+    },
+
+    deleteItem: function () {
+      this.model.destroy();
+      this.remove();
     },
 
     render: function () {
