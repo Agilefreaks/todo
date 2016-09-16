@@ -20,6 +20,11 @@ define([
     },
 
     render: function () {
+      var self = this;
+
+      this.collection.each(function (toDoItem) {
+        self.updateView(toDoItem);
+      });
       return this;
     }
   });

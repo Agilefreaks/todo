@@ -1,8 +1,9 @@
 define([
   'jquery',
   'backbone',
-  'text!templates/todo_view.ejs'
-], function ($, Backbone, ToDoTemplate) {
+  'text!templates/todo_view.ejs',
+  'common'
+], function ($, Backbone, ToDoTemplate, Common) {
   return Backbone.View.extend({
     events: {
       'click .toggle': 'toggleCompleteStatus',
@@ -18,7 +19,13 @@ define([
     },
 
     toggleVisibility: function () {
-      this.model.get('completed') ? this.$('.title').addClass('completed') : this.$('.title').removeClass('completed');
+      this.$('.title').toggleClass('completed', this.model.get('completed'));
+
+      if (Common.ToDoFilter === 'done') {
+        this.$el.toggleClass('hidden', !this.model.get('completed'));
+      } else if (Common.ToDoFilter === 'notdone') {
+        this.$el.toggleClass('hidden', this.model.get('completed'));
+      }
     },
 
     deleteItem: function () {
@@ -30,6 +37,8 @@ define([
       var compiledTemplate = ejs.render(ToDoTemplate, {view: this, model: this.model});
 
       this.$el.append(compiledTemplate);
+
+      this.toggleVisibility();
       return this;
     }
   });

@@ -1,7 +1,8 @@
 define([
   'views/todo_view',
-  'models/todo'
-], function (Index, ToDo) {
+  'models/todo',
+  'common'
+], function (Index, ToDo, Common) {
   var instance, model, subject;
 
   beforeEach(function () {
@@ -59,6 +60,27 @@ define([
       subject();
 
       expect(instance.$('.title').hasClass('completed')).toBeTruthy();
+    });
+
+    it('does not hide the entire view', function () {
+      subject();
+
+      expect(instance.$el.hasClass('hidden')).toBeFalsy();
+    });
+  });
+
+  describe('filter is set to #done', function () {
+    beforeEach(function () {
+      subject = function () {
+        Common.ToDoFilter = 'done';
+        instance.render();
+      };
+    });
+
+    it('item is hidden on view', function () {
+      subject();
+
+      expect(instance.$el.hasClass('hidden')).toBeTruthy();
     });
   });
 

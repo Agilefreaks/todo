@@ -18,6 +18,7 @@ define([
     render: function () {
       var compiledTemplate = ejs.render(indexTemplate);
 
+      this.$el.empty();
       this.$el.append(compiledTemplate);
 
       this.$('#todo-input').replaceWith(this.addToDoView.render().$el);

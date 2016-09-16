@@ -7,7 +7,7 @@ define([
   var instance, subject;
 
   beforeEach(function () {
-    instance = new ToDosView({collection: new ToDoCollection()});
+    instance = new ToDosView({el: '<div>', collection: new ToDoCollection()});
     subject = function () {
       return instance;
     };
@@ -31,7 +31,45 @@ define([
       };
     });
 
+    afterEach(function () {
+      instance.collection.reset();
+    });
+
     it('appends a new list item to list', function () {
+      var expectedLength = 1;
+
+      subject();
+
+      expect(instance.$('.todo-view').length).toEqual(expectedLength);
+    });
+  });
+
+  describe('Render', function () {
+    var toDoItem;
+
+    beforeEach(function () {
+      toDoItem = new ToDo({
+        title: 'Test',
+        completed: false
+      });
+
+      instance.stopListening();
+      instance.collection.add(toDoItem);
+
+      subject = function () {
+        instance.render();
+      };
+    });
+
+    it('is called', function () {
+      var renderSpy = spyOn(instance, 'render').and.callThrough();
+
+      subject();
+
+      expect(renderSpy).toHaveBeenCalled();
+    });
+
+    it('adds item from collection to view', function () {
       var expectedLength = 1;
 
       subject();
