@@ -2,10 +2,11 @@ define([
   'views/todo_view',
   'models/todo'
 ], function (Index, ToDo) {
-  var instance, subject;
+  var instance, model, subject;
 
   beforeEach(function () {
-    instance = new Index({model: new ToDo({title: 'Test', completed: false}), el: $('<div>')});
+    model = new ToDo({title: 'Test', completed: false});
+    instance = new Index({model: model, el: $('<div>')});
     subject = function () {
       return instance;
     };
@@ -15,7 +16,7 @@ define([
     instance.$el.empty();
   });
 
-  describe('Render', function () {
+  describe('render', function () {
     var expectedLength = 1;
 
     beforeEach(function () {
@@ -40,23 +41,15 @@ define([
     });
   });
 
-  describe('Check item', function () {
+  describe('toggleCompleteStatus', function () {
     beforeEach(function () {
+      instance.render();
       subject = function () {
-        instance.render();
         instance.toggleCompleteStatus();
       };
     });
 
-    it('executes call of function', function () {
-      var spy = spyOn(instance, 'toggleCompleteStatus').and.callThrough();
-
-      subject();
-
-      expect(spy).toHaveBeenCalled();
-    });
-
-    it('model complete status is modified to true', function () {
+    it('modifies complete status of the model to true', function () {
       subject();
 
       expect(instance.model.get('completed')).toBeTruthy();
@@ -69,20 +62,28 @@ define([
     });
   });
 
-  describe('Deleting', function () {
+  describe('deleteItem', function () {
     beforeEach(function () {
+      instance.render();
       subject = function () {
-        instance.render();
         instance.deleteItem();
       };
     });
 
-    it('executes destruction of model and view', function () {
-      var spy = spyOn(instance, 'deleteItem').and.callThrough();
+    it('executes destruction of model', function () {
+      var destroySpy = spyOn(model, 'destroy');
 
       subject();
 
-      expect(spy).toHaveBeenCalled();
+      expect(destroySpy).toHaveBeenCalled();
     });
+
+    it('removes view', function () {
+      var myDiv = $('<div>').append(instance.$el);
+
+      subject();
+
+      expect($.contains(myDiv.get(0), instance.el)).toBeFalsy();
+    })
   });
 });
