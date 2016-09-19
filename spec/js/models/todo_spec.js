@@ -18,10 +18,5 @@ define([
     it('is with default completed status', function () {
       expect(subject().get('completed')).toBeFalsy();
     });
-
-    it('changes status on changeCompleted call', function () {
-      subject().changeCompleted();
-      expect(subject().get('completed')).toBeTruthy();
-    });
   });
 });

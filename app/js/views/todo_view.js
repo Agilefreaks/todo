@@ -12,7 +12,7 @@ define([
     className: 'todo-view',
 
     toggleCompleteStatus: function () {
-      this.model.changeCompleted();
+      this.model.set({completed: !this.model.get('completed')});
       this.toggleVisibility();
     },
 

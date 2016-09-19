@@ -5,10 +5,6 @@ define([
     defaults: {
       title: '',
       completed: false
-    },
-
-    changeCompleted: function () {
-      this.set({completed: !this.get('completed')});
     }
   });
 

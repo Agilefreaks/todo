@@ -40,20 +40,12 @@ define([
     });
   });
 
-  describe('Check item', function () {
+  describe('toggleCompleteStatus', function () {
     beforeEach(function () {
+      instance.render();
       subject = function () {
-        instance.render();
         instance.toggleCompleteStatus();
       };
-    });
-
-    it('executes call of function', function () {
-      var spy = spyOn(instance, 'toggleCompleteStatus').and.callThrough();
-
-      subject();
-
-      expect(spy).toHaveBeenCalled();
     });
 
     it('model complete status is modified to true', function () {
