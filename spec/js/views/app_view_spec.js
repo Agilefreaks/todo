@@ -1,32 +1,53 @@
 define([
   'views/app_view',
+  'collections/todos',
   'ejs'
-], function (Index) {
+], function (Index, ToDoCollection) {
   var instance, subject;
 
   beforeEach(function () {
-    instance = new Index({el: $('body')});
+    instance = new Index({el: $('<div>'), collection: new ToDoCollection()});
     subject = function () {
       return instance;
     };
   });
 
-  describe('render', function () {
-    it('will get rendered', function () {
-      subject().render();
-      expect(subject().$el.text()).toEqual(jasmine.stringMatching(/The current date is:/));
-    });
+  afterEach(function () {
+    instance.$el.empty();
   });
 
-  describe('currentDate', function () {
+  describe('Render', function () {
     beforeEach(function () {
       subject = function () {
-        return instance.currentDate();
+        instance.render();
       };
     });
 
-    it('returns a date', function () {
-      expect(subject() instanceof Date).toBe(true);
+    it('to add new todos is defined', function () {
+      subject();
+
+      expect($.contains(instance.el, instance.addToDoView.el)).toBeTruthy();
+    });
+
+    it('renders add todos view', function () {
+      var renderSpy = spyOn(instance.addToDoView, 'render').and.callThrough();
+
+      subject();
+
+      expect(renderSpy).toHaveBeenCalled();
+    });
+
+    it('that contains list is defined', function () {
+      subject();
+      expect(instance.toDosView).toBeDefined();
+    });
+
+    it('renders todos list view', function () {
+      var renderSpy = spyOn(instance.toDosView, 'render').and.callThrough();
+
+      subject();
+
+      expect(renderSpy).toHaveBeenCalled();
     });
   });
 });
