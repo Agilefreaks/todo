@@ -19,23 +19,35 @@ define([
     });
 
     it('has a index route', function () {
-      expect(subject()['(?:params)']).toEqual('index');
+      expect(subject()['*filter']).toEqual('index');
     });
   });
 
-  describe('navigate to empty route', function () {
+  describe('navigate to ', function () {
     beforeEach(function () {
       Backbone.history.start({silent: true, pushState: true});
 
-      subject = function () {
-        instance.navigate('', true);
+      subject = function (filter) {
+        instance.navigate(filter, true);
       };
     });
 
-    it('calls render on the index view', function () {
+    afterEach(function () {
+      Backbone.history.stop();
+    });
+
+    it('empty route call renders on the index view', function () {
       var renderSpy = spyOn(AppView.prototype, 'render').and.callThrough();
 
-      subject();
+      subject('');
+
+      expect(renderSpy).toHaveBeenCalled();
+    });
+
+    it('#done route call renders on the index view', function () {
+      var renderSpy = spyOn(AppView.prototype, 'render').and.callThrough();
+
+      subject('#done');
 
       expect(renderSpy).toHaveBeenCalled();
     });

@@ -1,20 +1,29 @@
 define([
   'jquery',
   'backbone',
-  'text!templates/app_view.ejs'
-], function ($, Backbone, indexTemplate) {
+  'text!templates/app_view.ejs',
+  'models/todo',
+  'collections/todos',
+  'views/add_todo_view',
+  'views/todos_view'
+], function ($, Backbone, indexTemplate, ToDo, ToDoCollection, AddToDoView, ToDosView) {
   return Backbone.View.extend({
-    el: this.$('#todo-app'),
-
-    currentDate: function () {
-      return new Date();
+    initialize: function () {
+      this.toDosView = new ToDosView({collection: this.collection});
+      this.addToDoView = new AddToDoView({collection: this.collection});
     },
 
+    el: this.$('#todo-app'),
+
     render: function () {
-      var compiledTemplate = ejs.render(indexTemplate, {view: this, model: this.model}, {});
+      var compiledTemplate = ejs.render(indexTemplate);
 
       this.$el.empty();
       this.$el.append(compiledTemplate);
+
+      this.$('#todo-input').replaceWith(this.addToDoView.render().$el);
+      this.$('#todo-list').replaceWith(this.toDosView.render().$el);
+
       return this;
     }
   });
