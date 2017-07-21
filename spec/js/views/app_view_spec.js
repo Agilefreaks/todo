@@ -1,32 +1,38 @@
 define([
   'views/app_view',
-  'ejs'
-], function (Index) {
-  var instance, subject;
+  'collections/todoList',
+  'model/todo'
+], function (AppView, TodoList, Todo) {
+  var app_view, subject;
 
   beforeEach(function () {
-    instance = new Index({el: $('body')});
-    subject = function () {
-      return instance;
-    };
+    app_view = new AppView({
+      el: $("<div><input id='new-todo' type='test' value='test' /></div>"),
+      collection: new TodoList()
+    });
+  });
+
+  describe('when app_view is constructing', function () {
+    it('will create app_view', function () {
+      expect(app_view).toBeDefined();
+    });
   });
 
   describe('render', function () {
     it('will get rendered', function () {
-      subject().render();
-      expect(subject().$el.text()).toEqual(jasmine.stringMatching(/The current date is:/));
+      app_view.render();
+      expect(app_view.$('#new-todo').length).toBe(1);
     });
   });
 
-  describe('currentDate', function () {
+  describe('createOnButtonClick', function () {
     beforeEach(function () {
-      subject = function () {
-        return instance.currentDate();
-      };
+      app_view.createOnButtonClick();
     });
 
-    it('returns a date', function () {
-      expect(subject() instanceof Date).toBe(true);
+    it('will add Todo item to the view TodoList collection', function () {
+      expect(app_view.collection.length).toEqual(1);
     });
   });
+
 });

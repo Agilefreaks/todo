@@ -1,21 +1,44 @@
 define([
   'jquery',
   'backbone',
-  'text!templates/app_view.ejs'
-], function ($, Backbone, indexTemplate) {
+  'model/todo',
+  'collections/todoList'
+], function ($, Backbone, Todo, TodoList) {
   return Backbone.View.extend({
-    el: this.$('#todo-app'),
+    el: '#todo-app',
 
-    currentDate: function () {
-      return new Date();
+    //events for creating new items
+    events: {
+      'click #addButton': 'createOnButtonClick',
+      'keypress #new-todo': 'createOnEnter'
     },
 
-    render: function () {
-      var compiledTemplate = ejs.render(indexTemplate, {view: this, model: this.model}, {});
+    //bind events on the TodoList collection in order to add items
+    initialize: function () {
+      this.$input = this.$('#new-todo');
+    },
 
-      this.$el.empty();
-      this.$el.append(compiledTemplate);
-      return this;
+    createTodo: function () {
+      return new Todo({
+        name: this.$input.val().trim(),
+        done: false
+      });
+    },
+
+    createOnButtonClick: function () {
+      if(this.$input.val().trim() !== ""){
+        this.collection.add(this.createTodo());
+      }
+    },
+
+    createOnEnter: function (e) {
+      var key_code = (e.keyCode ? e.keyCode : e.which);
+      if(key_code !== 13 || this.$input.val().trim() == ""){
+        return;
+      }
+
+      this.collection.add(this.createTodo());
     }
-  });
+  })
 });
+
