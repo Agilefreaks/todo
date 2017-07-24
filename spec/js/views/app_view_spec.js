@@ -6,7 +6,7 @@ define([
 ], function (AppView, TodoList) {
   var appView;
 
-  beforeEach(function () {
+  beforeAll(function () {
     appView = new AppView({
       el: $("<div><input id='new-todo' type='text' value='' /></div>"),
       collection: new TodoList()
@@ -34,32 +34,39 @@ define([
       };
     });
 
-    describe('input is empty', function () {
-      it('will not add todo', function () {
-        var expectedResult = 0;
+    it('will not add todo when input is empty', function () {
+      var expectedResult = 0;
 
-        subject();
-        expect(appView.collection.length).toBe(expectedResult);
-      });
+      appView.$('#new-todo').val();
+      subject();
+
+      expect(appView.collection.length).toBe(expectedResult);
     });
 
-    describe('input has empty spaces', function () {
-      it('will not add todo', function () {
-        var expectedResult = 0;
+    it('will not add todo when input contains spaces', function () {
+      var expectedResult = 0;
 
-        appView.$('#new-todo').val(' ');
-        subject();
-        expect(appView.collection.length).toEqual(expectedResult);
-      });
+      appView.$('#new-todo').val(' ');
+      subject();
+
+      expect(appView.collection.length).toEqual(expectedResult);
     });
 
     describe('input has text', function () {
+      beforeEach(function () {
+        appView.$('#new-todo').val('test ');
+      });
+
       it('will add todo', function () {
         var expectedResult = 1;
 
-        appView.$('#new-todo').val('test');
         subject();
         expect(appView.collection.length).toEqual(expectedResult);
+      });
+
+      it('will clear the input', function () {
+        subject();
+        expect(appView.$('#new-todo').val()).toEqual('');
       });
     });
   });
