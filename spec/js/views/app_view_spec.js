@@ -1,38 +1,66 @@
 define([
   'views/app_view',
   'collections/todoList',
-  'model/todo'
-], function (AppView, TodoList, Todo) {
-  var app_view, subject;
+  'model/todo',
+  'ejs'
+], function (AppView, TodoList) {
+  var appView;
 
   beforeEach(function () {
-    app_view = new AppView({
-      el: $("<div><input id='new-todo' type='test' value='test' /></div>"),
+    appView = new AppView({
+      el: $("<div><input id='new-todo' type='text' value='' /></div>"),
       collection: new TodoList()
     });
   });
 
   describe('when app_view is constructing', function () {
     it('will create app_view', function () {
-      expect(app_view).toBeDefined();
+      expect(appView).toBeDefined();
     });
   });
 
-  describe('render', function () {
-    it('will get rendered', function () {
-      app_view.render();
-      expect(app_view.$('#new-todo').length).toBe(1);
-    });
-  });
+  describe('addTodo', function () {
+    var event, subject;
 
-  describe('createOnButtonClick', function () {
     beforeEach(function () {
-      app_view.createOnButtonClick();
+      event = {
+        type: 'submit',
+        preventDefault: function () {
+        }
+      };
+
+      subject = function () {
+        appView.addTodo(event);
+      };
     });
 
-    it('will add Todo item to the view TodoList collection', function () {
-      expect(app_view.collection.length).toEqual(1);
+    describe('input is empty', function () {
+      it('will not add todo', function () {
+        var expectedResult = 0;
+
+        subject();
+        expect(appView.collection.length).toBe(expectedResult);
+      });
+    });
+
+    describe('input has empty spaces', function () {
+      it('will not add todo', function () {
+        var expectedResult = 0;
+
+        appView.$('#new-todo').val(' ');
+        subject();
+        expect(appView.collection.length).toEqual(expectedResult);
+      });
+    });
+
+    describe('input has text', function () {
+      it('will add todo', function () {
+        var expectedResult = 1;
+
+        appView.$('#new-todo').val('test');
+        subject();
+        expect(appView.collection.length).toEqual(expectedResult);
+      });
     });
   });
-
 });

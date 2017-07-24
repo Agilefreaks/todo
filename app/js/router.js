@@ -9,7 +9,7 @@ define([
     },
 
     index: function () {
-      var appView = new AppView({ collection: new TodoList()});
+      var appView = new AppView({collection: new TodoList()});
 
       appView.render();
     }
