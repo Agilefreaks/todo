@@ -1,73 +1,42 @@
 define([
   'views/app_view',
   'collections/todoList',
-  'model/todo',
   'ejs'
 ], function (AppView, TodoList) {
-  var appView;
+  var appView, subject;
 
   beforeAll(function () {
-    appView = new AppView({
-      el: $("<div><input id='new-todo' type='text' value='' /></div>"),
-      collection: new TodoList()
-    });
+    appView = new AppView({collection: new TodoList()});
   });
 
-  describe('when app_view is constructing', function () {
-    it('will create app_view', function () {
+  afterEach(function () {
+    appView.$el.empty();
+  });
+
+  describe('render', function () {
+    beforeEach(function () {
+      subject = function () {
+        appView.render();
+      };
+    });
+
+    it('will define app_view', function () {
+      subject();
       expect(appView).toBeDefined();
     });
-  });
 
-  describe('addTodo', function () {
-    var event, subject;
+    it('will create addTodos_view', function () {
+      var renderSpy = spyOn(appView.addTodoView, 'render').and.callThrough();
 
-    beforeEach(function () {
-      event = {
-        type: 'submit',
-        preventDefault: function () {
-        }
-      };
-
-      subject = function () {
-        appView.addTodo(event);
-      };
-    });
-
-    it('will not add todo when input is empty', function () {
-      var expectedResult = 0;
-
-      appView.$('#new-todo').val();
       subject();
-
-      expect(appView.collection.length).toBe(expectedResult);
+      expect(renderSpy).toHaveBeenCalled();
     });
 
-    it('will not add todo when input contains spaces', function () {
-      var expectedResult = 0;
+    it('will create todoList_view', function () {
+      var renderSpy = spyOn(appView.todoListView, 'render').and.callThrough();
 
-      appView.$('#new-todo').val(' ');
       subject();
-
-      expect(appView.collection.length).toEqual(expectedResult);
-    });
-
-    describe('input has text', function () {
-      beforeEach(function () {
-        appView.$('#new-todo').val('test ');
-      });
-
-      it('will add todo', function () {
-        var expectedResult = 1;
-
-        subject();
-        expect(appView.collection.length).toEqual(expectedResult);
-      });
-
-      it('will clear the input', function () {
-        subject();
-        expect(appView.$('#new-todo').val()).toEqual('');
-      });
+      expect(renderSpy).toHaveBeenCalled();
     });
   });
 });

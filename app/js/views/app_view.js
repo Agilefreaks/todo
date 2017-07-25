@@ -1,42 +1,23 @@
 define([
   'jquery',
   'backbone',
-  'model/todo',
-  'text!templates/app_view.ejs'
-], function ($, Backbone, Todo, AppViewTemplate) {
+  'views/todoList_view',
+  'views/addTodo_view'
+], function ($, Backbone, TodoListView, AddTodoView) {
   return Backbone.View.extend({
-    events: {
-      submit: 'addTodo'
-    },
-
     initialize: function () {
-      this.$input = this.$('#new-todo');
+      this.addTodoView = new AddTodoView({collection: this.collection});
+      this.todoListView = new TodoListView({collection: this.collection});
     },
 
     el: '#todo-app',
 
     render: function () {
-      var compiledTemplate = ejs.render(AppViewTemplate);
-
-      this.$el.append(compiledTemplate);
+      this.$el.empty();
+      this.$el.append(this.addTodoView.render().$el);
+      this.$el.append(this.todoListView.render().$el);
 
       return this;
-    },
-
-    addTodo: function (e) {
-      var inputValue = this.$input.val().trim();
-
-      e.preventDefault();
-      if (this.invalidInput(inputValue)) {
-        return;
-      }
-
-      this.collection.add(new Todo({name: inputValue}));
-      this.$input.val('');
-    },
-
-    invalidInput: function (input) {
-      return _.isEmpty(input);
     }
   });
 });
