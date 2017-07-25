@@ -20,6 +20,7 @@ define([
 
     toggleTodo: function () {
       this.model.toggle();
+      this.$('#name').toggleClass('done', this.model.get('done'));
     }
   });
 });
