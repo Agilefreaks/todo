@@ -6,12 +6,8 @@ define([
 ], function (TodoListView, Todo, TodoList) {
   var todoListView, subject;
 
-  beforeEach(function () {
+  beforeAll(function () {
     todoListView = new TodoListView({collection: new TodoList()});
-  });
-
-  afterEach(function () {
-    todoListView.$el.empty();
   });
 
   describe('render', function () {
@@ -41,10 +37,6 @@ define([
       subject = function () {
         todoListView.collection.add(todo);
       };
-    });
-
-    afterEach(function () {
-      todoListView.collection.reset();
     });
 
     it('add todo to todoListView', function () {
