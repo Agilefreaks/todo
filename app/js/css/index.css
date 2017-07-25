@@ -1,0 +1,11 @@
+/*
+input[type=checkbox]:checked + label.toggleStrike{
+  text-decoration: line-through;
+}
+*/
+
+.done{
+  text-decoration: line-through;
+}
+
+

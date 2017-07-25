@@ -44,4 +44,18 @@ define([
       expect(todoView.$el.find('#delete').length).toBe(expectedLength);
     });
   });
+
+  describe('toggle clicked', function () {
+    beforeEach(function () {
+      subject = function () {
+        todoView.render();
+        todoView.toggleTodo();
+      };
+    });
+
+    it('will modify model done status', function () {
+      subject();
+      expect(todoView.model.get('done')).toBeTruthy();
+    });
+  });
 });

@@ -4,6 +4,10 @@ define([
   'text!templates/todo_view.ejs'
 ], function ($, Backbone, TodoTemplate) {
   return Backbone.View.extend({
+    events: {
+      'click #toggle': 'toggleTodo'
+    },
+
     tagName: 'li',
     id: 'todo-view',
 
@@ -12,6 +16,11 @@ define([
 
       this.$el.append(todoTemplate);
       return this;
+    },
+
+    toggleTodo: function () {
+      this.model.toggle();
+      this.$('#name').toggleClass('done', this.model.get('done'));
     }
   });
 });

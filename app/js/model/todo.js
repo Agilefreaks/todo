@@ -6,6 +6,10 @@ define([
     defaults: {
       name: 'empty',
       done: false
+    },
+
+    toggle: function () {
+      this.set({done: !this.get('done')});
     }
   });
 });
