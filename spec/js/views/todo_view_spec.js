@@ -62,22 +62,12 @@ define([
   });
 
   describe('delete', function () {
-    var todoListView;
+    var todoListView = new TodoListView({collection: new TodoList(), el: $('<ul></ul>')}).render();
 
     beforeEach(function () {
-      todoView.render();
-      todoListView = new TodoListView({collection: new TodoList(), el: $('<ul></ul>')});
-
       subject = function () {
         todoView.delete();
       };
-    });
-
-    it('will call remove event', function () {
-      var removeSpy = spyOn(todoView.model, 'destroy');
-
-      subject();
-      expect(removeSpy).toHaveBeenCalled();
     });
 
     it('will remove model collection ', function () {
@@ -93,7 +83,7 @@ define([
       todoListView.$el.append(todoView.$el);
 
       subject();
-      expect($.contains(todoListView.$el, todoView.el)).toBeFalsy();
+      expect($.contains(todoListView.$el, todoView.$el)).toBeFalsy();
     });
   });
 });
