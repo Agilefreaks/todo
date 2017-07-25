@@ -1,5 +1,6 @@
 define([
-  'model/todo'
+  'model/todo',
+  'ejs'
 ], function (ToDo) {
   var todo;
 
@@ -7,7 +8,7 @@ define([
     todo = new ToDo();
   });
 
-  describe('empty todo', function () {
+  describe('empty todo_view.ejs', function () {
     it('has default title', function () {
       expect(todo.get('name')).toMatch('empty');
     });
