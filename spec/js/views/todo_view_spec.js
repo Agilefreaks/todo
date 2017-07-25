@@ -1,8 +1,10 @@
 define([
   'views/todo_view',
   'model/todo',
+  'collections/todoList',
+  'views/todoList_view',
   'ejs'
-], function (TodoView, Todo) {
+], function (TodoView, Todo, TodoList, TodoListView) {
   var todoView, subject, model;
 
   beforeAll(function () {
@@ -56,6 +58,32 @@ define([
     it('will modify model done status', function () {
       subject();
       expect(todoView.model.get('done')).toBeTruthy();
+    });
+  });
+
+  describe('delete', function () {
+    var todoListView = new TodoListView({collection: new TodoList(), el: $('<ul></ul>')}).render();
+
+    beforeEach(function () {
+      subject = function () {
+        todoView.delete();
+      };
+    });
+
+    it('will remove model collection ', function () {
+      var expectedResult = 0;
+
+      todoListView.collection.add(todoView.model);
+
+      subject();
+      expect(todoListView.collection.length).toBe(expectedResult);
+    });
+
+    it('will remove todo_view from todoList_view ', function () {
+      todoListView.$el.append(todoView.$el);
+
+      subject();
+      expect($.contains(todoListView.$el, todoView.$el)).toBeFalsy();
     });
   });
 });

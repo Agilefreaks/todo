@@ -5,7 +5,12 @@ define([
 ], function ($, Backbone, TodoTemplate) {
   return Backbone.View.extend({
     events: {
-      'click #toggle': 'toggleTodo'
+      'click #toggle': 'toggleTodo',
+      'click #delete': 'delete'
+    },
+
+    initialize: function () {
+      this.listenTo(this.model, 'destroy', this.remove);
     },
 
     tagName: 'li',
@@ -21,6 +26,10 @@ define([
     toggleTodo: function () {
       this.model.toggle();
       this.$('#name').toggleClass('done', this.model.get('done'));
+    },
+
+    delete: function () {
+      this.model.destroy();
     }
   });
 });

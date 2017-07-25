@@ -18,7 +18,7 @@ define([
     addTodo: function (todoItem) {
       var todoView = new TodoView({model: todoItem});
 
-      this.$el.append(todoView.render().el);
+      this.$el.append(todoView.render().$el);
     }
   });
 });
