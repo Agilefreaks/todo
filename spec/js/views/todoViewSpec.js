@@ -1,8 +1,8 @@
 define([
-  'views/todo_view',
+  'views/todoView',
   'model/todo',
   'collections/todoList',
-  'views/todoList_view',
+  'views/todoListView',
   'ejs'
 ], function (TodoView, Todo, TodoList, TodoListView) {
   var todoView, subject, model;

@@ -1,6 +1,6 @@
 define([
   'router',
-  'views/app_view'
+  'views/appView'
 ], function (Router, AppView) {
   var instance, subject;
 

@@ -2,7 +2,8 @@ define([
   'jquery',
   'backbone',
   'model/todo',
-  'text!templates/addTodo_view.ejs'
+  'text!templates/addTodo_view.ejs',
+  'ejs'
 ], function ($, Backbone, Todo, AddTodoTemplate) {
   return Backbone.View.extend({
     events: {

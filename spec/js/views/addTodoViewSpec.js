@@ -1,5 +1,5 @@
 define([
-  'views/addTodo_view',
+  'views/addTodoView',
   'collections/todoList',
   'ejs'
 ], function (AddTodoView, TodoList) {

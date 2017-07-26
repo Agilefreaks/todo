@@ -1,5 +1,5 @@
 define([
-  'views/app_view',
+  'views/appView',
   'collections/todoList',
   'ejs'
 ], function (AppView, TodoList) {
@@ -34,6 +34,13 @@ define([
 
     it('will create todoList_view', function () {
       var renderSpy = spyOn(appView.todoListView, 'render').and.callThrough();
+
+      subject();
+      expect(renderSpy).toHaveBeenCalled();
+    });
+
+    it('will create filter_view', function () {
+      var renderSpy = spyOn(appView.filterView, 'render').and.callThrough();
 
       subject();
       expect(renderSpy).toHaveBeenCalled();

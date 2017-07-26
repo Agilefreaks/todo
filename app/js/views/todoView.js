@@ -11,6 +11,8 @@ define([
 
     initialize: function () {
       this.listenTo(this.model, 'destroy', this.remove);
+      this.listenTo(this.model, 'display', this.display);
+      this.listenTo(this.model, 'hide', this.hide);
     },
 
     tagName: 'li',
@@ -30,6 +32,14 @@ define([
 
     delete: function () {
       this.model.destroy();
+    },
+
+    display: function () {
+      this.$el.show();
+    },
+
+    hide: function () {
+      this.$el.hide();
     }
   });
 });

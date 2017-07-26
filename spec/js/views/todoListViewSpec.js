@@ -1,5 +1,5 @@
 define([
-  'views/todoList_view',
+  'views/todoListView',
   'model/todo',
   'collections/todoList',
   'ejs'
