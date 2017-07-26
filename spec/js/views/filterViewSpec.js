@@ -34,21 +34,21 @@ define([
     });
 
     it('will trigger display all', function () {
-      var displaySpy = spyOn(filterView.displayAll(), 'trigger').and.callThrough();
+      var displaySpy = spyOn(filterView.displayAll(), 'display').and.callThrough();
 
       subject();
       expect(displaySpy).toHaveBeenCalled();
     });
 
     it('will trigger filterDone', function () {
-      var filterDoneSpy = spyOn(filterView.filterDone(), 'trigger').and.callThrough();
+      var filterDoneSpy = spyOn(filterView.filterDone(), 'hide').and.callThrough();
 
       subject();
       expect(filterDoneSpy).toHaveBeenCalled();
     });
 
     it('will trigger filterNotDone', function () {
-      var filterNotDoneSpy = spyOn(filterView.filterNotDone(), 'trigger').and.callThrough();
+      var filterNotDoneSpy = spyOn(filterView.filterNotDone(), 'show').and.callThrough();
 
       subject();
       expect(filterNotDoneSpy).toHaveBeenCalled();
