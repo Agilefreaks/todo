@@ -13,7 +13,7 @@ define([
     render: function () {
       var addTodoTemplate = ejs.render(AddTodoTemplate, {view: this, model: this.model});
 
-      this.$el.append(addTodoTemplate);
+      this.$el.html(addTodoTemplate);
       this.input = this.$('#new-todo');
 
       return this;

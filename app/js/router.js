@@ -1,6 +1,6 @@
 define([
   'backbone',
-  'views/appView',
+  'views/app_view',
   'collections/todoList'
 ], function (Backbone, AppView, TodoList) {
   var Router = Backbone.Router.extend({

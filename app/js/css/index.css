@@ -1,11 +1,17 @@
-/*
-input[type=checkbox]:checked + label.toggleStrike{
-  text-decoration: line-through;
-}
-*/
-
 .done{
   text-decoration: line-through;
+}
+
+.hidden{
+  display: none;
+}
+
+.active{
+  color:blue;
+}
+
+.test{
+  color:red;
 }
 
 

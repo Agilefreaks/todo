@@ -1,15 +1,16 @@
 define([
-  'views/todoView',
+  'views/todo_view',
   'model/todo',
   'collections/todoList',
-  'views/todoListView',
   'ejs'
-], function (TodoView, Todo, TodoList, TodoListView) {
+], function (TodoView, Todo, TodoList) {
   var todoView, subject, model;
 
-  beforeAll(function () {
+  beforeEach(function () {
     model = new Todo({name: 'test', done: false});
+
     todoView = new TodoView({model: model});
+    todoView.render();
   });
 
   afterEach(function () {
@@ -17,32 +18,21 @@ define([
   });
 
   describe('render', function () {
-    var expectedLength;
-
-    beforeEach(function () {
-      expectedLength = 1;
-      subject = function () {
-        todoView.render();
-      };
-    });
+    var expectedLength = 1;
 
     it('will define todo_view', function () {
-      subject();
       expect(todoView).toBeDefined();
     });
 
     it('will create checkbox', function () {
-      subject();
       expect(todoView.$('#toggle').length).toBe(expectedLength);
     });
 
     it('will create name input', function () {
-      subject();
       expect(todoView.$el.find('#name').length).toBe(expectedLength);
     });
 
     it('will create delete button', function () {
-      subject();
       expect(todoView.$el.find('#delete').length).toBe(expectedLength);
     });
   });
@@ -50,7 +40,6 @@ define([
   describe('toggle clicked', function () {
     beforeEach(function () {
       subject = function () {
-        todoView.render();
         todoView.toggleTodo();
       };
     });
@@ -62,7 +51,7 @@ define([
   });
 
   describe('delete', function () {
-    var todoListView = new TodoListView({collection: new TodoList(), el: $('<ul></ul>')}).render();
+    var todoList = new TodoList();
 
     beforeEach(function () {
       subject = function () {
@@ -70,20 +59,19 @@ define([
       };
     });
 
-    it('will remove model collection ', function () {
+    it('will remove model from collection ', function () {
       var expectedResult = 0;
 
-      todoListView.collection.add(todoView.model);
-
+      todoList.add(todoView.model);
       subject();
-      expect(todoListView.collection.length).toBe(expectedResult);
+      expect(todoList.length).toBe(expectedResult);
     });
 
     it('will remove todo_view from todoList_view ', function () {
-      todoListView.$el.append(todoView.$el);
+      var testList = $('<ul></ul>').append(todoView.$el);
 
       subject();
-      expect($.contains(todoListView.$el, todoView.$el)).toBeFalsy();
+      expect($.contains(testList, todoView.$el)).toBeFalsy();
     });
   });
 });

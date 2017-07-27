@@ -1,13 +1,14 @@
 define([
-  'views/todoListView',
+  'views/todoList_view',
   'model/todo',
   'collections/todoList',
+  'model/filter',
   'ejs'
-], function (TodoListView, Todo, TodoList) {
+], function (TodoListView, Todo, TodoList, Filter) {
   var todoListView, subject;
 
   beforeAll(function () {
-    todoListView = new TodoListView({collection: new TodoList()});
+    todoListView = new TodoListView({collection: new TodoList(), listFilter: new Filter()});
   });
 
   describe('render', function () {
@@ -23,25 +24,29 @@ define([
     });
   });
 
-  describe('add todo to todoList_view', function () {
+  describe('add', function () {
     var todo;
     var expectedLength = 1;
 
     beforeEach(function () {
-      expectedLength = 1;
       todo = new Todo({
         name: 'test',
         done: false
       });
 
       subject = function () {
-        todoListView.collection.add(todo);
+        todoListView.addTodo(todo);
       };
     });
 
-    it('add todo to todoListView', function () {
+    it('will add todo_view to todoList_view', function () {
       subject();
       expect(todoListView.$('#todo-view').length).toEqual(expectedLength);
+    });
+
+    it('will add todo to collection', function () {
+      subject();
+      expect(todoListView.collection.findWhere({name: todo.get('name')})).toBeFalsy();
     });
   });
 });

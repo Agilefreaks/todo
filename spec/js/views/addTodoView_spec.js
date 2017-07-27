@@ -1,15 +1,16 @@
 define([
-  'views/addTodoView',
+  'views/addTodo_view',
   'collections/todoList',
   'ejs'
 ], function (AddTodoView, TodoList) {
   var addTodoView;
 
-  beforeAll(function () {
+  beforeEach(function () {
     addTodoView = new AddTodoView({
-      el: $("<div><input id='new-todo' type='text' value='' /></div>"),
       collection: new TodoList()
     });
+
+    addTodoView.render();
   });
 
   describe('when app_view is constructing', function () {
@@ -36,7 +37,7 @@ define([
     it('will not add todo_view.ejs when input is empty', function () {
       var expectedResult = 0;
 
-      addTodoView.$('#new-todo_view.ejs').val();
+      addTodoView.$('#new-todo').val('');
       subject();
 
       expect(addTodoView.collection.length).toBe(expectedResult);
@@ -45,7 +46,7 @@ define([
     it('will not add todo_view.ejs when input contains spaces', function () {
       var expectedResult = 0;
 
-      addTodoView.$('#new-todo_view.ejs').val(' ');
+      addTodoView.$('#new-todo').val(' ');
       subject();
 
       expect(addTodoView.collection.length).toEqual(expectedResult);
@@ -53,7 +54,7 @@ define([
 
     describe('input has text', function () {
       beforeEach(function () {
-        addTodoView.$('#new-todo_view.ejs').val('test ');
+        addTodoView.$('#new-todo').val('test ');
       });
 
       it('will add todo_view.ejs', function () {
@@ -65,7 +66,7 @@ define([
 
       it('will clear the input', function () {
         subject();
-        expect(addTodoView.$('#new-todo_view.ejs').val()).toEqual('');
+        expect(addTodoView.$('#new-todo').val()).toEqual('');
       });
     });
   });

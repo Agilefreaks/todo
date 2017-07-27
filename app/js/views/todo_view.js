@@ -11,6 +11,7 @@ define([
 
     initialize: function () {
       this.listenTo(this.model, 'destroy', this.remove);
+      this.listenTo(this.model, 'remove', this.remove);
       this.listenTo(this.model, 'display', this.display);
       this.listenTo(this.model, 'hide', this.hide);
     },
@@ -21,7 +22,7 @@ define([
     render: function () {
       var todoTemplate = ejs.render(TodoTemplate, {view: this, model: this.model});
 
-      this.$el.append(todoTemplate);
+      this.$el.html(todoTemplate);
       return this;
     },
 

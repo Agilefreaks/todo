@@ -1,5 +1,5 @@
 define([
-  'views/appView',
+  'views/app_view',
   'collections/todoList',
   'ejs'
 ], function (AppView, TodoList) {
