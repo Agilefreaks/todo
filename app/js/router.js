@@ -1,14 +1,15 @@
 define([
   'backbone',
-  'views/app_view'
-], function (Backbone, AppView) {
+  'views/app_view',
+  'collections/todoList'
+], function (Backbone, AppView, TodoList) {
   var Router = Backbone.Router.extend({
     routes: {
       '(?:params)': 'index'
     },
 
     index: function () {
-      var appView = new AppView();
+      var appView = new AppView({collection: new TodoList()});
 
       appView.render();
     }

@@ -1,21 +1,29 @@
 define([
   'jquery',
   'backbone',
-  'text!templates/app_view.ejs'
-], function ($, Backbone, indexTemplate) {
+  'views/todoList_view',
+  'views/addTodo_view',
+  'views/filter_view',
+  'model/filter'
+], function ($, Backbone, TodoListView, AddTodoView, FilterView, Filter) {
   return Backbone.View.extend({
-    el: this.$('#todo-app'),
+    initialize: function () {
+      var filter = new Filter();
 
-    currentDate: function () {
-      return new Date();
+      this.addTodoView = new AddTodoView({collection: this.collection});
+      this.todoListView = new TodoListView({collection: this.collection, listFilter: filter});
+      this.filterView = new FilterView({collection: this.collection, listFilter: filter});
     },
 
-    render: function () {
-      var compiledTemplate = ejs.render(indexTemplate, {view: this, model: this.model}, {});
+    el: '#todo-app',
 
-      this.$el.empty();
-      this.$el.append(compiledTemplate);
+    render: function () {
+      this.$el.append(this.addTodoView.render().$el);
+      this.$el.append(this.todoListView.render().$el);
+      this.$el.append(this.filterView.render().$el);
+
       return this;
     }
   });
 });
+
