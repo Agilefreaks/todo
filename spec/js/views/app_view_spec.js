@@ -11,22 +11,12 @@ define([
     };
   });
 
-  describe('render', function () {
-    it('will get rendered', function () {
-      subject().render();
-      expect(subject().$el.text()).toEqual(jasmine.stringMatching(/The current date is:/));
-    });
-  });
-
-  describe('currentDate', function () {
-    beforeEach(function () {
-      subject = function () {
-        return instance.currentDate();
-      };
-    });
-
-    it('returns a date', function () {
-      expect(subject() instanceof Date).toBe(true);
+  describe('ToDoView', function () {
+    describe('when creating new TODO', function () {
+      it('should update the collection', function () {
+        subject().createNewToDo();
+        expect(subject().getTodoCollection().length).toBe(1);
+      });
     });
   });
 });

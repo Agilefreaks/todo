@@ -5,12 +5,5 @@ define([
     defaults: {
       description: ''
     }
-
-    /*emptyItem: function () {
-      return {
-        header: 'empty',
-        done: false
-      };
-    }*/
   });
 });
