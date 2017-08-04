@@ -4,18 +4,19 @@ define([
   'backbone',
   'text!templates/app_view.ejs',
   'models/todo_model',
-  'collections/todo_collection'
-], function ($, Backbone, indexTemplate, ToDoModel, TodoCollection) {
+  'collections/todo_collection',
+  'views/todo_view'
+], function ($, Backbone, indexTemplate, ToDoModel, TodoCollection, ToDoView) {
   var toDoCollection;
 
   return Backbone.View.extend({
     events: {
-      'click #new-todo': 'addNewToDo'
+      'click #new-todo': 'onClickAdd'
     },
 
     initialize: function () {
       toDoCollection = new TodoCollection();
-      this.input = this.$('#todo-description');
+      this.listenTo(toDoCollection, 'add', this.addToDo);
     },
 
     el: this.$('#todo-app'),
@@ -35,9 +36,20 @@ define([
     createNewToDo: function () {
       toDoCollection.add(new ToDoModel());
     },
-    
-    addNewToDo: function () {
-      
+
+    onClickAdd: function () {
+      var desc = this.$('#todo-description').val();
+      var toDoModel = new ToDoModel({description: desc});
+
+      if (desc !== '') {
+        toDoCollection.add(toDoModel);
+      }
+    },
+
+    addToDo: function (toDoModel) {
+      var view = new ToDoView({model: toDoModel});
+
+      this.$('#todo-list').append(view.render().el);
     }
   });
 });

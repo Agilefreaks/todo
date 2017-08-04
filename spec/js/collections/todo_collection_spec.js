@@ -12,7 +12,9 @@ define([
 
   describe('TodoCollection', function () {
     it('should be initially empty', function () {
-      expect(subject().length).toEqual(0);
+      var zero = 0;
+
+      expect(subject().length).toEqual(zero);
     });
   });
 });

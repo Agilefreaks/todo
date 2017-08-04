@@ -14,8 +14,10 @@ define([
   describe('ToDoView', function () {
     describe('when creating new TODO', function () {
       it('should update the collection', function () {
+        var one = 1;
+
         subject().createNewToDo();
-        expect(subject().getTodoCollection().length).toBe(1);
+        expect(subject().getTodoCollection().length).toBe(one);
       });
     });
   });
