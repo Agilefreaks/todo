@@ -18,6 +18,31 @@ define([
     });
   });
 
+
+  describe('addTodo',function(){
+
+    describe('with empty title',function()
+    {
+      it('will not add todo',function(){
+        subject().$("#todo-title-textbox").val("");
+        subject().addTodo();
+        expect(subject().todoItemCollection.length).toEqual(0);
+      });
+    });
+
+    describe('with some title', function(){
+      it('will add todo item', function(){
+        subject().$("#todo-title-textbox").val("test");
+        subject().addTodo();
+        expect(subject().todoItemCollection.length).toEqual(1);
+      });
+      it('will clear the input', function(){
+        expect(subject().$("#todo-title-textbox").val()).toEqual("");
+      });
+    });
+
+  });
+
   describe('currentDate', function () {
     beforeEach(function () {
       subject = function () {

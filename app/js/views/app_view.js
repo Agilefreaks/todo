@@ -7,12 +7,20 @@ define([
 ], function ($, Backbone, indexTemplate, TodoItemCollection, TodoItem) {
   return Backbone.View.extend({
     el: this.$('#todo-app'),
+
     initialize: function(){
       this.todoItemCollection = new TodoItemCollection();
     },
 
     events:{
-      "click #add-todo-button" : "addTodo"
+      "click #add-todo-button" : "addTodo",
+      "keydown #todo-title-textbox" : "onKeyDownEventHandler"
+    },
+
+    onKeyDownEventHandler: function(e){
+      if(e.keyCode==13){
+        this.$('#add-todo-button').click();
+      }
     },
 
     currentDate: function () {
@@ -26,7 +34,7 @@ define([
         title: todoTitle,
       });
       this.todoItemCollection.add(todoItem);
-      console.log(todoItem.get('title'));
+      this.$('#todo-title-textbox').val('');
     },
 
     render: function () {
