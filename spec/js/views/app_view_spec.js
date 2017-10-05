@@ -19,25 +19,36 @@ define([
   });
 
 
-  describe('addTodo',function(){
-
-    describe('with empty title',function()
-    {
-      it('will not add todo',function(){
-        subject().$("#todo-title-textbox").val("");
-        subject().addTodo();
-        expect(subject().todoItemCollection.length).toEqual(0);
+  describe('addTodo', function(){
+    beforeEach(function(){
+      subject = function () {
+        instance.addTodo();
+      };
+    });
+    
+    describe('with empty title', function(){
+      it('will not add todo', function(){
+        subject();
+        expect(instance.todoItemCollection.length).toEqual(0);
       });
     });
 
     describe('with some title', function(){
-      it('will add todo item', function(){
-        subject().$("#todo-title-textbox").val("test");
-        subject().addTodo();
-        expect(subject().todoItemCollection.length).toEqual(1);
+      beforeEach(function(){
+        instance.$("#todo-title-textbox").val("test");
+        subject();
       });
+      
+      it('will add todo item', function(){
+        expect(instance.todoItemCollection.length).toEqual(1);
+      });
+
       it('will clear the input', function(){
-        expect(subject().$("#todo-title-textbox").val()).toEqual("");
+        expect(instance.$("#todo-title-textbox").val()).toEqual("");
+      });
+
+      it('adds the todo with that title', function(){
+        expect(instance.todoItemCollection.at(instance.todoItemCollection.length-1).get('title')).toEqual("test");
       });
     });
 
