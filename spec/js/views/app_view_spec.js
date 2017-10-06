@@ -36,18 +36,20 @@ define([
     describe('with some title', function(){
       beforeEach(function(){
         instance.$("#todo-title-textbox").val("test");
-        subject();
       });
       
       it('will add todo item', function(){
+        subject();
         expect(instance.todoItemCollection.length).toEqual(1);
       });
 
       it('will clear the input', function(){
+        subject();
         expect(instance.$("#todo-title-textbox").val()).toEqual("");
       });
 
       it('adds the todo with that title', function(){
+        subject();
         expect(instance.todoItemCollection.at(instance.todoItemCollection.length-1).get('title')).toEqual("test");
       });
     });
