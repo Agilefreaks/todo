@@ -1,0 +1,11 @@
+<div>
+	<% for(var i=0; i<todosCollection.length; i++) {%>
+		<div>
+			<input type="checkbox" name="completed" />
+		   	<label>
+		   		<%= todosCollection.at(i).get('title') %>
+		   	</label>
+		   	<input id="<%= i %>" class="delete" type="button" value="X"/>
+	   	</div>
+	<% } %>
+</div>

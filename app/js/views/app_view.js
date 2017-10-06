@@ -3,13 +3,15 @@ define([
   'backbone',
   'text!templates/app_view.ejs',
   'collections/todo_item_collection',
-  'models/todo_item'
-], function ($, Backbone, indexTemplate, TodoItemCollection, TodoItem) {
+  'models/todo_item',
+  'views/todo_item_list_view'
+], function ($, Backbone, indexTemplate, TodoItemCollection, TodoItem, TodoListView) {
   return Backbone.View.extend({
     el: this.$('#todo-app'),
 
     initialize: function(){
       this.todoItemCollection = new TodoItemCollection();
+      this.todoListView = new TodoListView({todoItemCollection: this.todoItemCollection});
     },
 
     events:{
@@ -35,6 +37,7 @@ define([
       });
       this.todoItemCollection.add(todoItem);
       this.$('#todo-title-textbox').val('');
+      this.render();
     },
 
     render: function () {
@@ -42,6 +45,9 @@ define([
 
       this.$el.empty();
       this.$el.append(compiledTemplate);
+
+      this.todoListView.setElement(this.$("#todo-list")).render();
+
       return this;
     }
   });
